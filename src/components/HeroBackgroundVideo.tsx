@@ -26,25 +26,44 @@ export function HeroBackgroundVideo() {
       setLoadVideo(true);
     };
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) arm();
-      },
-      { rootMargin: "320px", threshold: 0 },
-    );
-    io.observe(wrap);
+    let io: IntersectionObserver | undefined;
+    try {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) arm();
+        },
+        { rootMargin: "320px", threshold: 0 },
+      );
+      io.observe(wrap);
+    } catch {
+      arm();
+    }
 
     let idleId: number | undefined;
+    let idleFallbackId: number | undefined;
 
     if (typeof window !== "undefined") {
-      idleId = window.requestIdleCallback(() => arm(), { timeout: 1200 });
+      try {
+        idleId = window.requestIdleCallback(() => arm(), { timeout: 1200 });
+      } catch {
+        idleFallbackId = window.setTimeout(() => arm(), 300);
+      }
     }
 
     return () => {
       cancelled = true;
-      io.disconnect();
-      if (typeof window !== "undefined" && idleId !== undefined) {
-        window.cancelIdleCallback(idleId);
+      io?.disconnect();
+      if (typeof window !== "undefined") {
+        if (idleId !== undefined) {
+          try {
+            window.cancelIdleCallback(idleId);
+          } catch {
+            /* ignore */
+          }
+        }
+        if (idleFallbackId !== undefined) {
+          window.clearTimeout(idleFallbackId);
+        }
       }
     };
   }, []);
