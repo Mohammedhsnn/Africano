@@ -98,6 +98,11 @@ const nl = {
           quote: "Heerlijk eten en vlotte bezorging. Love it😍",
           author: "Melanie Mechielsen",
         },
+        {
+          quote:
+            "Heerlijk eten! Vers en met liefde voorbereid dit proef je gelijk💪🏻🥰",
+          author: "Edvina Kurti",
+        },
       ],
     },
   },

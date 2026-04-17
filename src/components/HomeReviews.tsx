@@ -31,7 +31,7 @@ export function HomeReviews({ reviews }: Props) {
           </p>
         </div>
 
-        <ul className="mx-auto grid max-w-4xl gap-4 md:grid-cols-2 md:gap-6">
+        <ul className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {reviews.items.map((item, index) => (
             <li key={index}>
               <article className="flex h-full flex-col rounded-2xl border border-black/5 bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md md:p-7">

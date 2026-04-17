@@ -97,6 +97,11 @@ const en = {
           quote: "Delicious food and quick delivery. Love it😍",
           author: "Melanie Mechielsen",
         },
+        {
+          quote:
+            "Delicious food! Fresh and made with love — you can taste it right away 💪🏻🥰",
+          author: "Edvina Kurti",
+        },
       ],
     },
   },
