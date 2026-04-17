@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MobileShell } from "@/components/MobileShell";
+import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export default function OverOnsPage() {
@@ -73,10 +74,15 @@ export default function OverOnsPage() {
         </div>
 
         <div className="mx-auto mt-14 flex max-w-3xl flex-col gap-4 rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-8 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-sm text-stone-300">
-            Nieuwsgierig naar catering of de foodtruck? We denken graag met u
-            mee.
-          </p>
+          <div>
+            <p className="text-sm text-stone-300">
+              Nieuwsgierig naar catering of de foodtruck? We denken graag met u
+              mee.
+            </p>
+            <div className="mt-4">
+              <SocialLinks />
+            </div>
+          </div>
           <Link
             href="/contact"
             className="inline-block shrink-0 rounded-lg bg-primary px-6 py-3 text-xs font-bold uppercase tracking-widest text-white hover:bg-primary-container"

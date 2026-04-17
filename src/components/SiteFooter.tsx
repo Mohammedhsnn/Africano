@@ -1,5 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
+import { SocialLinks } from "@/components/SocialLinks";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -40,6 +41,12 @@ export function SiteFooter() {
                 Laten we uw volgende feest lekker maken.
               </span>
             </p>
+            <div className="mt-5">
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                Volg ons
+              </p>
+              <SocialLinks />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12 md:gap-16">

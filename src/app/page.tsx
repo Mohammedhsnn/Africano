@@ -1,6 +1,7 @@
 import { Leaf, PartyPopper, Truck, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { MobileShell } from "@/components/MobileShell";
+import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const highlightCards: {
@@ -28,7 +29,7 @@ const highlightCards: {
 export default function HomePage() {
   return (
     <MobileShell variant="light">
-      <section className="relative -mx-0 -mt-24 flex min-h-[72vh] flex-col items-center justify-center overflow-hidden bg-[#050505] px-4 pt-24 text-center md:-mt-20 md:min-h-[78vh] md:pt-20">
+      <section className="relative -mx-0 -mt-24 flex min-h-[82vh] flex-col items-center justify-center overflow-hidden bg-[#050505] px-4 pt-28 text-center md:-mt-20 md:min-h-[92vh] md:pt-24 lg:min-h-[100vh]">
         <video
           className="absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center opacity-[0.58] [transform:translateZ(0)] [backface-visibility:hidden]"
           autoPlay
@@ -210,6 +211,15 @@ export default function HomePage() {
           >
             Contact
           </Link>
+          <div className="mt-5">
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+              Volg ons ook op
+            </p>
+            <SocialLinks
+              tone="light"
+              className="flex flex-wrap items-center justify-center gap-2"
+            />
+          </div>
         </div>
       </section>
 

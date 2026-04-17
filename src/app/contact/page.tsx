@@ -1,5 +1,6 @@
 import { CalendarCheck, Mail, MessageCircle, Phone } from "lucide-react";
 import { MobileShell } from "@/components/MobileShell";
+import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const tel = "+31641947956";
@@ -9,7 +10,7 @@ export default function ContactPage() {
   return (
     <MobileShell>
       <main className="flex flex-1 flex-col px-4 pb-12 md:px-12 lg:px-24">
-        <header className="mb-12 max-w-4xl">
+        <header className="mb-12 mx-auto max-w-4xl text-center">
           <h1 className="font-headline text-3xl font-extrabold uppercase leading-tight tracking-tighter text-white md:text-5xl">
             Contact <span className="text-primary">Africano</span>
           </h1>
@@ -110,6 +111,12 @@ export default function ContactPage() {
           Wij komen op locatie voor catering en foodtruck — geen vaste
           winkeladres nodig voor uw aanvraag.
         </p>
+        <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col items-center">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+            Volg ons ook op
+          </p>
+          <SocialLinks />
+        </div>
       </main>
       <SiteFooter />
     </MobileShell>

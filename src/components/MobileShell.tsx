@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { Header } from "@/components/Header";
 
@@ -8,15 +11,21 @@ type Props = {
 };
 
 export function MobileShell({ children, variant = "dark" }: Props) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const main =
     variant === "light"
       ? "flex min-h-dvh flex-col bg-background pb-20 pt-24 text-on-surface md:pb-0 md:pt-20"
       : "flex min-h-dvh flex-col bg-black pb-20 pt-24 text-white md:pb-0 md:pt-20";
   return (
     <>
-      <Header />
+      {mounted ? <Header /> : null}
       <div className={main}>{children}</div>
-      <BottomNav />
+      {mounted ? <BottomNav /> : null}
     </>
   );
 }
