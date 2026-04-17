@@ -65,10 +65,16 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Keep iOS/Safari from showing the inline play overlay on hero background video */
+/* Background hero video: no native controls / overlay play affordance (esp. iOS Safari) */
 .hero-bg-video::-webkit-media-controls,
+.hero-bg-video::-webkit-media-controls-enclosure,
+.hero-bg-video::-webkit-media-controls-panel,
 .hero-bg-video::-webkit-media-controls-start-playback-button,
-.hero-bg-video::-webkit-media-controls-play-button {
+.hero-bg-video::-webkit-media-controls-play-button,
+.hero-bg-video::-webkit-media-controls-overlay-play-button,
+.hero-bg-video::-webkit-media-controls-overlay-enclosure {
   display: none !important;
   -webkit-appearance: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

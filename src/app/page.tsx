@@ -1,6 +1,5 @@
 import { PartyPopper, Truck, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { HeroBackgroundVideo } from "@/components/HeroBackgroundVideo";
 import { MobileShell } from "@/components/MobileShell";
 import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -28,11 +27,27 @@ const highlightCards: {
   },
 ];
 
+const heroVideoSrc =
+  process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/media/africano-hero.mp4";
+
 export default function HomePage() {
   return (
     <MobileShell variant="light">
       <section className="relative -mx-0 -mt-24 flex min-h-[82vh] flex-col items-center justify-center overflow-hidden bg-[#050505] px-4 pt-28 text-center md:-mt-20 md:min-h-[92vh] md:pt-24 lg:min-h-[100vh]">
-        <HeroBackgroundVideo />
+        <video
+          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center opacity-[0.58] [transform:translateZ(0)] [backface-visibility:hidden]"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          tabIndex={-1}
+          aria-hidden
+        >
+          <source src={heroVideoSrc} type="video/mp4" />
+        </video>
         <div
           className="pointer-events-none absolute inset-0 z-[1] opacity-75"
           aria-hidden
