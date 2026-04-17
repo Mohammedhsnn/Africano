@@ -1,75 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /** Override with a CDN or GitHub Release asset URL to keep the HTML bundle light. */
 const HERO_VIDEO_SRC =
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/media/africano-hero.mp4";
 
+/**
+ * Hero background: must load immediately (no idle/IO deferral) or iOS often won’t
+ * start muted autoplay until a tap. Retries play() on media + visibility events.
+ */
 export function HeroBackgroundVideo() {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [loadVideo, setLoadVideo] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  // Defer the network download until the hero is (almost) visible or the main thread is idle.
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-
-    let cancelled = false;
-    let armed = false;
-
-    const arm = () => {
-      if (cancelled || armed) return;
-      armed = true;
-      setLoadVideo(true);
-    };
-
-    let io: IntersectionObserver | undefined;
-    try {
-      io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) arm();
-        },
-        { rootMargin: "320px", threshold: 0 },
-      );
-      io.observe(wrap);
-    } catch {
-      arm();
-    }
-
-    let idleId: number | undefined;
-    let idleFallbackId: number | undefined;
-
-    if (typeof window !== "undefined") {
-      try {
-        idleId = window.requestIdleCallback(() => arm(), { timeout: 1200 });
-      } catch {
-        idleFallbackId = window.setTimeout(() => arm(), 300);
-      }
-    }
-
-    return () => {
-      cancelled = true;
-      io?.disconnect();
-      if (typeof window !== "undefined") {
-        if (idleId !== undefined) {
-          try {
-            window.cancelIdleCallback(idleId);
-          } catch {
-            /* ignore */
-          }
-        }
-        if (idleFallbackId !== undefined) {
-          window.clearTimeout(idleFallbackId);
-        }
-      }
-    };
-  }, []);
 
   useEffect(() => {
-    if (!loadVideo) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -79,20 +23,18 @@ export function HeroBackgroundVideo() {
       if (cancelled) return;
       video.muted = true;
       video.defaultMuted = true;
+      video.volume = 0;
       video.loop = true;
       video.playsInline = true;
-      video.setAttribute("playsinline", "true");
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
       video.setAttribute("webkit-playsinline", "true");
 
       try {
         await video.play();
       } catch {
-        // Autoplay may be blocked until a user gesture (handled below).
+        /* autoplay may still succeed on a later event */
       }
-    };
-
-    const onPlaying = () => {
-      if (!cancelled) setIsPlaying(true);
     };
 
     const onEnded = () => {
@@ -101,50 +43,56 @@ export function HeroBackgroundVideo() {
       void tryPlay();
     };
 
-    video.addEventListener("playing", onPlaying);
-    video.addEventListener("canplay", tryPlay);
+    const kickOff = () => void tryPlay();
+
+    video.addEventListener("loadedmetadata", kickOff);
+    video.addEventListener("loadeddata", kickOff);
+    video.addEventListener("canplay", kickOff);
+    video.addEventListener("canplaythrough", kickOff);
     video.addEventListener("ended", onEnded);
-    void video.load();
+
     void tryPlay();
 
-    const retryOnInteraction = () => void tryPlay();
-    document.addEventListener("touchstart", retryOnInteraction, {
-      passive: true,
-      once: true,
-    });
+    const retryDelaysMs = [80, 250, 700, 2000] as const;
+    const timeoutIds = retryDelaysMs.map((ms) =>
+      window.setTimeout(() => void tryPlay(), ms),
+    );
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") void tryPlay();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pageshow", kickOff);
 
     return () => {
       cancelled = true;
-      video.removeEventListener("playing", onPlaying);
-      video.removeEventListener("canplay", tryPlay);
+      video.removeEventListener("loadedmetadata", kickOff);
+      video.removeEventListener("loadeddata", kickOff);
+      video.removeEventListener("canplay", kickOff);
+      video.removeEventListener("canplaythrough", kickOff);
       video.removeEventListener("ended", onEnded);
-      document.removeEventListener("touchstart", retryOnInteraction);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pageshow", kickOff);
+      for (const id of timeoutIds) window.clearTimeout(id);
     };
-  }, [loadVideo]);
+  }, []);
 
   return (
-    <div
-      ref={wrapRef}
-      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-    >
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       <video
         ref={videoRef}
-        className={`hero-bg-video h-full w-full min-h-full min-w-full object-cover object-center [transform:translateZ(0)] [backface-visibility:hidden] transition-opacity duration-500 ${
-          isPlaying ? "opacity-[0.58]" : "opacity-0"
-        }`}
+        className="hero-bg-video pointer-events-none h-full w-full min-h-full min-w-full object-cover object-center opacity-[0.58] [transform:translateZ(0)] [backface-visibility:hidden]"
         autoPlay
         muted
         loop
         playsInline
-        preload="none"
+        preload="auto"
         disablePictureInPicture
         disableRemotePlayback
         tabIndex={-1}
         aria-hidden
       >
-        {loadVideo ? (
-          <source src={HERO_VIDEO_SRC} type="video/mp4" />
-        ) : null}
+        <source src={HERO_VIDEO_SRC} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
