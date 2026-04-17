@@ -91,19 +91,12 @@ const nl = {
       facebookCta: "Alle reviews op Facebook",
       items: [
         {
-          quote:
-            "Fantastisch eten en een hele fijne service. Alles was vers en smaakvol — precies wat we hoopten voor ons feest!",
-          author: "Facebook-review",
+          quote: "Heerlijk eten en Meer dan genoeg! Top!",
+          author: "Joshua Peters",
         },
         {
-          quote:
-            "De foodtruck was een schot in de roos. Snel, vriendelijk en ontzettend lekker. Aanrader!",
-          author: "Facebook-review",
-        },
-        {
-          quote:
-            "Halal catering met veel aandacht voor detail. Communicatie verliep soepel en de gasten genoten volop.",
-          author: "Facebook-review",
+          quote: "Heerlijk eten en vlotte bezorging. Love it😍",
+          author: "Melanie Mechielsen",
         },
       ],
     },

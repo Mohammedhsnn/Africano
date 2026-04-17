@@ -90,19 +90,12 @@ const en = {
       facebookCta: "All reviews on Facebook",
       items: [
         {
-          quote:
-            "Fantastic food and really friendly service. Everything was fresh and flavourful — exactly what we wanted for our party!",
-          author: "Facebook review",
+          quote: "Delicious food and more than enough! Top!",
+          author: "Joshua Peters",
         },
         {
-          quote:
-            "The food truck was a hit. Quick, welcoming, and delicious. Highly recommend!",
-          author: "Facebook review",
-        },
-        {
-          quote:
-            "Halal catering with great attention to detail. Communication was smooth and our guests loved it.",
-          author: "Facebook review",
+          quote: "Delicious food and quick delivery. Love it😍",
+          author: "Melanie Mechielsen",
         },
       ],
     },

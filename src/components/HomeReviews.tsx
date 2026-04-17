@@ -31,7 +31,7 @@ export function HomeReviews({ reviews }: Props) {
           </p>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
+        <ul className="mx-auto grid max-w-4xl gap-4 md:grid-cols-2 md:gap-6">
           {reviews.items.map((item, index) => (
             <li key={index}>
               <article className="flex h-full flex-col rounded-2xl border border-black/5 bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md md:p-7">
@@ -53,8 +53,8 @@ export function HomeReviews({ reviews }: Props) {
                   {item.quote}
                   <span className="text-primary">&rdquo;</span>
                 </blockquote>
-                <p className="mt-4 text-xs font-medium text-secondary">
-                  — {item.author}
+                <p className="mt-4 text-sm font-semibold text-on-surface">
+                  {item.author}
                 </p>
               </article>
             </li>
