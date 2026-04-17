@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { MobileShell } from "@/components/MobileShell";
-import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export default function OverOnsPage() {
@@ -79,9 +78,6 @@ export default function OverOnsPage() {
               Nieuwsgierig naar catering of de foodtruck? We denken graag met u
               mee.
             </p>
-            <div className="mt-4">
-              <SocialLinks />
-            </div>
           </div>
           <Link
             href="/contact"

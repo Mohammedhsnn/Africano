@@ -27,9 +27,10 @@ const items: SocialItem[] = [
 type Props = {
   tone?: "dark" | "light";
   className?: string;
+  showIcons?: boolean;
 };
 
-export function SocialLinks({ tone = "dark", className }: Props) {
+export function SocialLinks({ tone = "dark", className, showIcons = true }: Props) {
   const palette =
     tone === "light"
       ? "border-black/10 bg-white text-stone-800 hover:border-primary/40 hover:text-primary"
@@ -38,7 +39,8 @@ export function SocialLinks({ tone = "dark", className }: Props) {
   return (
     <div
       className={
-        className ?? "flex flex-wrap items-center justify-center gap-2 md:justify-start"
+        className ??
+        "flex flex-wrap items-center justify-center gap-2 md:justify-start"
       }
     >
       {items.map(({ href, label, Icon }) => (
@@ -50,7 +52,7 @@ export function SocialLinks({ tone = "dark", className }: Props) {
           aria-label={label}
           className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest transition-colors ${palette}`}
         >
-          <Icon className="h-3.5 w-3.5" aria-hidden />
+          {showIcons ? <Icon className="h-3.5 w-3.5" aria-hidden /> : null}
           {label}
         </a>
       ))}
