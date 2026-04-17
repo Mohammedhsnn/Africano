@@ -1,10 +1,24 @@
 import { Flame } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { MobileShell } from "@/components/MobileShell";
 import { SiteFooter } from "@/components/SiteFooter";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary, hasLocale } from "@/lib/i18n/dictionaries";
+import { localizePath } from "@/lib/i18n/paths";
 
-export default function FoodtruckPage() {
+export default async function FoodtruckPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const locale = lang as Locale;
+  const dict = getDictionary(locale);
+  const f = dict.foodtruck;
+
   return (
     <MobileShell>
       <main className="flex flex-1 flex-col px-4 pb-12 md:px-8">
@@ -23,26 +37,23 @@ export default function FoodtruckPage() {
                 🚚
               </p>
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-primary">
-                Food truck — Africano Catering
+                {f.eyebrow}
               </p>
               <h1 className="font-headline text-3xl font-black uppercase leading-tight tracking-tighter text-white md:text-5xl">
-                De Africano food truck op uw locatie
+                {f.title}
               </h1>
               <p className="mx-auto mt-6 max-w-xl text-base text-stone-300 md:mx-0 md:text-lg">
-                Wij komen naar u toe en bereiden het eten vers ter plekke — gezellige
-                sfeer en smaakvolle maaltijden voor uw gasten.
+                {f.intro}
               </p>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:justify-start">
-                {["Vers op locatie", "Snelle service", "Unieke rice bowls"].map(
-                  (item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-stone-200"
-                    >
-                      {item}
-                    </span>
-                  )
-                )}
+                {f.chips.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-stone-200"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -51,7 +62,7 @@ export default function FoodtruckPage() {
               <div className="relative overflow-hidden rounded-[1.5rem] border border-white/15 bg-black/30 shadow-[0_30px_90px_-40px_rgba(0,0,0,0.85)]">
                 <Image
                   src="/media/foodtruck-showcase.png"
-                  alt="Africano Foodtruck op locatie"
+                  alt={f.imageAlt}
                   width={1536}
                   height={1024}
                   className="h-[250px] w-full object-cover md:h-[330px]"
@@ -64,22 +75,13 @@ export default function FoodtruckPage() {
 
         <section className="mx-auto mt-10 grid w-full max-w-6xl gap-6 md:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-2xl border border-white/10 bg-stone-950/70 p-7 md:p-8">
-            <p className="leading-relaxed text-stone-300">
-              De Africano Foodtruck is te boeken voor feesten en evenementen. Denk
-              aan onze rice bowls met verschillende toppings en huisgemaakte
-              sauzen — vers bereid waar u bent.
-            </p>
+            <p className="leading-relaxed text-stone-300">{f.body}</p>
             <div className="mt-7">
               <h2 className="mb-4 font-headline text-sm font-bold uppercase tracking-widest text-white">
-                Geschikt voor
+                {f.suitableFor}
               </h2>
               <ul className="grid gap-3 sm:grid-cols-2">
-                {[
-                  "Verjaardagsfeesten",
-                  "Bedrijfsfeesten",
-                  "Evenementen",
-                  "Privéfeesten",
-                ].map((item) => (
+                {f.suitableList.map((item) => (
                   <li
                     key={item}
                     className="flex items-center gap-3 rounded-lg border border-white/10 bg-black/35 px-4 py-3 text-sm text-stone-200"
@@ -98,24 +100,23 @@ export default function FoodtruckPage() {
 
           <aside className="rounded-2xl border border-primary/25 bg-gradient-to-b from-primary/15 to-transparent p-6 md:p-7">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-              Interesse?
+              {f.asideEyebrow}
             </p>
             <p className="mt-4 text-sm leading-relaxed text-stone-300">
-              Neem gerust contact met ons op voor mogelijkheden,
-              beschikbaarheid en een voorstel op maat.
+              {f.asideText}
             </p>
             <div className="mt-7">
               <Link
-                href="/contact"
+                href={localizePath(locale, "/contact")}
                 className="inline-block w-full rounded-lg bg-primary px-6 py-3.5 text-center text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-primary-container"
               >
-                Vraag beschikbaarheid aan
+                {f.cta}
               </Link>
             </div>
           </aside>
         </section>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </MobileShell>
   );
 }

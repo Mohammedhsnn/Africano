@@ -1,36 +1,74 @@
 import { PartyPopper, Truck, type LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { MobileShell } from "@/components/MobileShell";
-import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
-
-const highlightCards: {
-  icon?: LucideIcon;
-  halalBadge?: string;
-  title: string;
-  text: string;
-}[] = [
-  {
-    icon: PartyPopper,
-    title: "Feesten & events",
-    text: "Catering voor feesten, evenementen en speciale gelegenheden — met passie bereid.",
-  },
-  {
-    halalBadge: "حلال",
-    title: "Eigen smaak",
-    text: "Zelf ontwikkelde gerechten en zorgvuldig gekozen kruiden, aangevuld met traditionele Somalische klassiekers — alles is halal.",
-  },
-  {
-    icon: Truck,
-    title: "Foodtruck",
-    text: "Rice bowls, toppings en huisgemaakte sauzen — vers op locatie.",
-  },
-];
+import { SocialLinks } from "@/components/SocialLinks";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary, hasLocale } from "@/lib/i18n/dictionaries";
+import { localizePath } from "@/lib/i18n/paths";
 
 const heroVideoSrc =
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/media/africano-hero.mp4";
 
-export default function HomePage() {
+function StrongLine({
+  text,
+  strong,
+  strongClassName,
+}: {
+  text: string;
+  strong: string;
+  strongClassName?: string;
+}) {
+  const parts = text.split("{strong}");
+  if (parts.length !== 2) return <>{text}</>;
+  return (
+    <>
+      {parts[0]}
+      <strong className={strongClassName}>{strong}</strong>
+      {parts[1]}
+    </>
+  );
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const locale = lang as Locale;
+  const dict = getDictionary(locale);
+  const h = dict.home;
+
+  const highlightCards: {
+    key: string;
+    icon?: LucideIcon;
+    halalBadge?: string;
+    title: string;
+    text: string;
+  }[] = [
+    {
+      key: "events",
+      icon: PartyPopper,
+      title: h.cardEventsTitle,
+      text: h.cardEventsText,
+    },
+    {
+      key: "taste",
+      halalBadge: "حلال",
+      title: h.cardTasteTitle,
+      text: h.cardTasteText,
+    },
+    {
+      key: "truck",
+      icon: Truck,
+      title: h.cardTruckTitle,
+      text: h.cardTruckText,
+    },
+  ];
+
   return (
     <MobileShell variant="light">
       <section className="relative -mx-0 -mt-24 flex min-h-[82vh] flex-col items-center justify-center overflow-hidden bg-[#050505] px-4 pt-28 text-center md:-mt-20 md:min-h-[92vh] md:pt-24 lg:min-h-[100vh]">
@@ -67,29 +105,28 @@ export default function HomePage() {
 
         <div className="relative z-10 mx-auto max-w-3xl py-12 md:py-16">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-primary">
-            <span aria-hidden>✦</span> Sinds 2021
+            <span aria-hidden>✦</span> {h.heroBadge}
           </p>
           <h1 className="mb-6 font-headline text-3xl font-extrabold leading-tight tracking-tighter text-white md:text-5xl">
-            Africano Catering{" "}
-            <span className="text-primary-container">smaak met zorg,</span>{" "}
-            op uw feest of event.
+            {h.heroTitleLead}{" "}
+            <span className="text-primary-container">{h.heroTitleAccent}</span>{" "}
+            {h.heroTitleRest}
           </h1>
           <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-stone-400 md:text-lg">
-            Voor particulieren en bedrijven: catering en foodtruck, met eigen
-            gerechten, bijzondere kruiden en traditionele Somalische smaken.
+            {h.heroSub}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/catering"
+              href={localizePath(locale, "/catering")}
               className="inline-block rounded-lg bg-primary px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-primary-container md:px-8 md:py-4"
             >
-              Ontdek catering
+              {h.ctaCatering}
             </Link>
             <Link
-              href="/contact"
+              href={localizePath(locale, "/contact")}
               className="inline-block rounded-lg border border-white/20 bg-white/5 px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-black md:px-8 md:py-4"
             >
-              Neem contact op
+              {h.ctaContact}
             </Link>
           </div>
         </div>
@@ -100,17 +137,17 @@ export default function HomePage() {
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                Over ons
+                {h.aboutEyebrow}
               </p>
               <h2 className="font-headline text-2xl font-extrabold uppercase tracking-tighter text-on-surface md:text-3xl">
-                Waar we voor staan
+                {h.aboutHeading}
               </h2>
             </div>
             <Link
-              href="/over-ons"
+              href={localizePath(locale, "/over-ons")}
               className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary"
             >
-              Lees het hele verhaal →
+              {h.aboutLink}
             </Link>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
@@ -118,7 +155,7 @@ export default function HomePage() {
               const Icon = card.icon;
               return (
                 <article
-                  key={card.title}
+                  key={card.key}
                   className="rounded-xl border border-black/5 bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
                   {card.halalBadge ? (
@@ -157,19 +194,20 @@ export default function HomePage() {
               🍽️
             </p>
             <h2 className="font-headline text-xl font-black uppercase tracking-tighter md:text-2xl">
-              Catering
+              {dict.nav.catering}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-stone-400">
-              Vanaf <strong className="text-white">20 personen</strong> voor
-              bruiloften, verjaardagen en bedrijfsfeesten. Verse gerechten,
-              aangepast aan uw wensen — wij regelen het eten, u geniet
-              zorgeloos.
+              <StrongLine
+                text={h.cateringBlurb}
+                strong={h.cateringBlurbStrong}
+                strongClassName="text-white"
+              />
             </p>
             <Link
-              href="/catering"
+              href={localizePath(locale, "/catering")}
               className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-primary hover:underline"
             >
-              Meer over catering →
+              {h.cateringMore}
             </Link>
           </div>
           <div className="rounded-2xl border border-white/10 bg-stone-950/80 p-8 md:p-10">
@@ -177,17 +215,16 @@ export default function HomePage() {
               🚚
             </p>
             <h2 className="font-headline text-xl font-black uppercase tracking-tighter md:text-2xl">
-              Food truck
+              {dict.nav.foodTruck}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-stone-400">
-              Wij komen naar uw locatie en bereiden vers ter plekke — gezellige
-              sfeer, lekker eten voor uw gasten.
+              {h.truckBlurb}
             </p>
             <Link
-              href="/foodtruck"
+              href={localizePath(locale, "/foodtruck")}
               className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-primary hover:underline"
             >
-              Meer over de truck →
+              {h.truckMore}
             </Link>
           </div>
         </div>
@@ -197,18 +234,15 @@ export default function HomePage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
           <div>
             <h2 className="font-headline text-lg font-bold uppercase tracking-tighter text-on-surface md:text-xl">
-              Online shop
+              {h.shopTitle}
             </h2>
-            <p className="mt-2 max-w-xl text-sm text-secondary">
-              Onze shop is nog in aanbouw. Tot die tijd helpen we u graag via
-              e-mail met bestellingen en aanvragen.
-            </p>
+            <p className="mt-2 max-w-xl text-sm text-secondary">{h.shopText}</p>
           </div>
           <Link
-            href="/shop"
+            href={localizePath(locale, "/shop")}
             className="shrink-0 rounded-lg border border-primary/30 bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-white"
           >
-            Shop-info
+            {h.shopCta}
           </Link>
         </div>
       </section>
@@ -216,21 +250,18 @@ export default function HomePage() {
       <section className="bg-surface-container-low px-6 py-14 md:px-8 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-headline text-2xl font-black uppercase tracking-tighter text-on-surface md:text-3xl">
-            Laten we praten
+            {h.ctaSectionTitle}
           </h2>
-          <p className="mt-4 text-secondary">
-            Bel, app of mail — we denken graag met u mee over catering, truck of
-            maatwerk.
-          </p>
+          <p className="mt-4 text-secondary">{h.ctaSectionText}</p>
           <Link
-            href="/contact"
+            href={localizePath(locale, "/contact")}
             className="mt-8 inline-block rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-widest text-white hover:bg-primary-container"
           >
-            Contact
+            {h.ctaSectionButton}
           </Link>
           <div className="mt-5">
             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-              Volg ons ook op
+              {h.socialEyebrow}
             </p>
             <SocialLinks
               tone="light"
@@ -240,7 +271,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </MobileShell>
   );
 }

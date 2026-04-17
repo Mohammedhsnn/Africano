@@ -1,22 +1,34 @@
 import { CalendarCheck, Mail, MessageCircle, Phone } from "lucide-react";
+import { notFound } from "next/navigation";
 import { MobileShell } from "@/components/MobileShell";
-import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SocialLinks } from "@/components/SocialLinks";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary, hasLocale } from "@/lib/i18n/dictionaries";
 
 const tel = "+31641947956";
 const telDisplay = "+31 6 41 94 79 56";
 
-export default function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const locale = lang as Locale;
+  const dict = getDictionary(locale);
+  const c = dict.contact;
+
   return (
     <MobileShell>
       <main className="flex flex-1 flex-col px-4 pb-12 md:px-12 lg:px-24">
-        <header className="mb-12 mx-auto max-w-4xl text-center">
+        <header className="mx-auto mb-12 max-w-4xl text-center">
           <h1 className="font-headline text-3xl font-extrabold uppercase leading-tight tracking-tighter text-white md:text-5xl">
-            Contact <span className="text-primary">Africano</span>
+            {c.title} <span className="text-primary">{c.titleAccent}</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg font-light leading-relaxed text-stone-400">
-            Bel, app of mail ons voor catering, foodtruck of vragen over de shop.
-            We reageren zo snel mogelijk.
+            {c.intro}
           </p>
         </header>
 
@@ -34,7 +46,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                Telefoon
+                {c.phone}
               </p>
               <p className="mt-1 text-lg font-medium text-white">{telDisplay}</p>
             </div>
@@ -55,12 +67,10 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                WhatsApp
+                {c.whatsapp}
               </p>
               <p className="mt-1 text-lg font-medium text-white">{telDisplay}</p>
-              <p className="mt-1 text-xs text-stone-500">
-                Bel of stuur een WhatsApp-bericht
-              </p>
+              <p className="mt-1 text-xs text-stone-500">{c.whatsappHint}</p>
             </div>
           </a>
 
@@ -77,7 +87,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                E-mail
+                {c.email}
               </p>
               <p className="mt-1 break-all text-lg font-medium text-white">
                 info@africanocatering.nl
@@ -98,7 +108,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                Reserveringen
+                {c.reservations}
               </p>
               <p className="mt-1 break-all text-lg font-medium text-white">
                 reservations@africanocatering.nl
@@ -108,17 +118,16 @@ export default function ContactPage() {
         </div>
 
         <p className="mx-auto mt-12 max-w-2xl text-center text-sm text-stone-500">
-          Wij komen op locatie voor catering en foodtruck — geen vaste
-          winkeladres nodig voor uw aanvraag.
+          {c.footnote}
         </p>
         <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col items-center">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-            Volg ons ook op
+            {c.socialEyebrow}
           </p>
           <SocialLinks />
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </MobileShell>
   );
 }

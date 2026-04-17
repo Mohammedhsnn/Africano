@@ -1,20 +1,30 @@
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { SocialLinks } from "@/components/SocialLinks";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/over-ons", label: "Over ons" },
-  { href: "/catering", label: "Catering" },
-  { href: "/foodtruck", label: "Food truck" },
-  { href: "/shop", label: "Shop" },
-  { href: "/contact", label: "Contact" },
-];
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { localizePath } from "@/lib/i18n/paths";
 
 const tel = "+31641947956";
 const telDisplay = "+31 6 41 94 79 56";
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale);
+  const f = dict.footer;
+  const n = dict.nav;
+
+  const navLinks = [
+    { href: "/", label: n.home },
+    { href: "/over-ons", label: n.about },
+    { href: "/catering", label: n.catering },
+    { href: "/foodtruck", label: n.foodTruck },
+    { href: "/shop", label: n.shop },
+    { href: "/contact", label: n.contact },
+  ];
+
+  const year = new Date().getFullYear();
+  const copyright = f.copyright.replace("{year}", String(year));
+
   return (
     <footer className="relative mt-auto overflow-hidden border-t border-white/10 bg-[#050505]">
       <div
@@ -29,21 +39,18 @@ export function SiteFooter() {
         <div className="mb-10 flex flex-col gap-8 md:mb-12 md:flex-row md:items-start md:justify-between md:gap-12">
           <div className="max-w-md">
             <Link
-              href="/"
+              href={localizePath(locale, "/")}
               className="font-headline text-xl font-bold uppercase tracking-tight text-white transition-colors hover:text-primary"
             >
-              Africano Catering
+              {dict.meta.siteName}
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-stone-500">
-              Catering &amp; foodtruck sinds 2021 — verse smaken, eigen kruiden
-              en een vleugje traditie.{" "}
-              <span className="text-stone-400">
-                Laten we uw volgende feest lekker maken.
-              </span>
+              {f.tagline}{" "}
+              <span className="text-stone-400">{f.taglineAccent}</span>
             </p>
             <div className="mt-5">
               <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                Volg ons
+                {f.follow}
               </p>
               <SocialLinks />
             </div>
@@ -52,13 +59,13 @@ export function SiteFooter() {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12 md:gap-16">
             <div>
               <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                Pagina&apos;s
+                {f.pages}
               </p>
               <ul className="flex flex-col gap-2.5">
                 {navLinks.map((l) => (
                   <li key={l.href}>
                     <Link
-                      href={l.href}
+                      href={localizePath(locale, l.href)}
                       className="group inline-flex items-center gap-1 text-sm text-stone-400 transition-colors hover:text-white"
                     >
                       <span className="h-px w-0 bg-primary transition-all group-hover:w-3" />
@@ -70,7 +77,7 @@ export function SiteFooter() {
             </div>
             <div>
               <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                Zo bereikt u ons
+                {f.reachUs}
               </p>
               <ul className="flex flex-col gap-4">
                 <li>
@@ -83,7 +90,7 @@ export function SiteFooter() {
                     </span>
                     <span>
                       <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">
-                        Bellen / WhatsApp
+                        {f.phoneWhatsapp}
                       </span>
                       {telDisplay}
                     </span>
@@ -99,7 +106,7 @@ export function SiteFooter() {
                     </span>
                     <span>
                       <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-500">
-                        E-mail
+                        {f.email}
                       </span>
                       info@africanocatering.nl
                     </span>
@@ -112,11 +119,10 @@ export function SiteFooter() {
 
         <div className="grid grid-cols-1 gap-3 border-t border-white/10 pt-8 text-center md:grid-cols-3 md:items-center">
           <p className="text-[11px] uppercase tracking-widest text-stone-600 md:text-left">
-            © {new Date().getFullYear()} Africano Catering · Met zorg bereid in
-            Zeeland
+            {copyright}
           </p>
           <p className="text-[11px] text-stone-600 md:text-center">
-            Gerealiseerd door{" "}
+            {f.builtBy}{" "}
             <a
               href="https://www.articxsoftware.nl"
               target="_blank"
@@ -128,9 +134,7 @@ export function SiteFooter() {
           </p>
           <p className="text-[11px] text-stone-600 md:text-right">
             <span className="text-primary">♥</span>{" "}
-            <span className="italic text-stone-500">
-              Smaak die blijft hangen
-            </span>
+            <span className="italic text-stone-500">{f.motto}</span>
           </p>
         </div>
       </div>
