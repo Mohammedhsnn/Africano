@@ -2,39 +2,88 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { locales, type Locale } from "@/lib/i18n/config";
-import { localizePath } from "@/lib/i18n/paths";
 import { useLocale } from "@/components/LocaleProvider";
+import { localizePath } from "@/lib/i18n/paths";
 
-// Labels are static per target locale to avoid async in client
-const otherLocaleLabel: Record<Locale, string> = {
-  nl: "NL",
-  en: "EN",
-};
+function FlagNl({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 9 6"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <rect fill="#AE1C28" width="9" height="2" />
+      <rect fill="#FFF" y="2" width="9" height="2" />
+      <rect fill="#21468B" y="4" width="9" height="2" />
+    </svg>
+  );
+}
+
+/** St George’s cross (England) — common shorthand for “English” in UI. */
+function FlagEn({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 5 3"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <rect width="5" height="3" fill="#FFF" />
+      <rect x="2" width="1" height="3" fill="#CE1124" />
+      <rect y="1" width="5" height="1" fill="#CE1124" />
+    </svg>
+  );
+}
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
   const locale = useLocale();
-  const other = (locales.find((l) => l !== locale) ?? "en") as Locale;
 
   const stripped = pathname.replace(/^\/(nl|en)(?=\/|$)/, "");
   const rest = stripped === "" ? "/" : stripped;
-  const href = localizePath(other, rest);
+  const nlHref = localizePath("nl", rest);
+  const enHref = localizePath("en", rest);
 
-  const aria =
-    other === "en"
-      ? "Switch to English"
-      : "Schakel naar Nederlands";
+  const baseLink =
+    "flex items-center justify-center rounded-md p-1.5 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]";
 
   return (
-    <Link
-      href={href}
-      hrefLang={other}
-      lang={other}
-      className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-stone-300 transition-colors hover:border-primary/40 hover:text-white"
-      aria-label={aria}
+    <div
+      className="flex items-center gap-0.5 rounded-xl border border-white/12 bg-gradient-to-b from-white/[0.08] to-black/40 p-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md"
+      role="group"
+      aria-label="Taal / Language"
     >
-      {otherLocaleLabel[other]}
-    </Link>
+      <Link
+        href={nlHref}
+        hrefLang="nl"
+        lang="nl"
+        title="Nederlands"
+        aria-label="Nederlands"
+        aria-current={locale === "nl" ? "page" : undefined}
+        className={`${baseLink} ${
+          locale === "nl"
+            ? "bg-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.12)]"
+            : "opacity-55 hover:bg-white/8 hover:opacity-100"
+        }`}
+      >
+        <FlagNl className="h-[13px] w-[19px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
+      </Link>
+      <Link
+        href={enHref}
+        hrefLang="en"
+        lang="en"
+        title="English"
+        aria-label="English"
+        aria-current={locale === "en" ? "page" : undefined}
+        className={`${baseLink} ${
+          locale === "en"
+            ? "bg-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.12)]"
+            : "opacity-55 hover:bg-white/8 hover:opacity-100"
+        }`}
+      >
+        <FlagEn className="h-[13px] w-[22px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
+      </Link>
+    </div>
   );
 }
