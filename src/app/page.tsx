@@ -1,11 +1,12 @@
-import { Leaf, PartyPopper, Truck, type LucideIcon } from "lucide-react";
+import { PartyPopper, Truck, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { MobileShell } from "@/components/MobileShell";
 import { SocialLinks } from "@/components/SocialLinks";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const highlightCards: {
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  halalBadge?: string;
   title: string;
   text: string;
 }[] = [
@@ -15,9 +16,9 @@ const highlightCards: {
     text: "Catering voor feesten, evenementen en speciale gelegenheden — met passie bereid.",
   },
   {
-    icon: Leaf,
+    halalBadge: "حلال",
     title: "Eigen smaak",
-    text: "Zelf ontwikkelde gerechten en zorgvuldig gekozen kruiden, aangevuld met traditionele Somalische klassiekers.",
+    text: "Zelf ontwikkelde gerechten en zorgvuldig gekozen kruiden, aangevuld met traditionele Somalische klassiekers — alles is halal.",
   },
   {
     icon: Truck,
@@ -115,11 +116,22 @@ export default function HomePage() {
                   key={card.title}
                   className="rounded-xl border border-black/5 bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <Icon
-                    className="mb-4 h-9 w-9 text-primary"
-                    strokeWidth={1.75}
-                    aria-hidden
-                  />
+                  {card.halalBadge ? (
+                    <span
+                      className="mb-4 inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-white px-2.5 text-base font-black text-primary shadow-sm"
+                      aria-hidden
+                    >
+                      {card.halalBadge}
+                    </span>
+                  ) : (
+                    Icon && (
+                      <Icon
+                        className="mb-4 h-9 w-9 text-primary"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                    )
+                  )}
                   <h3 className="mb-2 font-headline text-lg font-bold text-on-surface">
                     {card.title}
                   </h3>
