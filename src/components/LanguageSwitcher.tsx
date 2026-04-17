@@ -20,18 +20,20 @@ function FlagNl({ className }: { className?: string }) {
   );
 }
 
-/** St George’s cross (England) — common shorthand for “English” in UI. */
-function FlagEn({ className }: { className?: string }) {
+/** Union Jack (United Kingdom). */
+function FlagUk({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 5 3"
+      viewBox="0 0 60 30"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <rect width="5" height="3" fill="#FFF" />
-      <rect x="2" width="1" height="3" fill="#CE1124" />
-      <rect y="1" width="5" height="1" fill="#CE1124" />
+      <path fill="#012169" d="M0 0h60v30H0z" />
+      <path stroke="#fff" strokeWidth="6" d="M0 0l60 30M60 0L0 30" />
+      <path stroke="#C8102E" strokeWidth="4" d="M0 0l60 30M60 0L0 30" />
+      <path stroke="#fff" strokeWidth="10" d="M30 0v30M0 15h60" />
+      <path stroke="#C8102E" strokeWidth="6" d="M30 0v30M0 15h60" />
     </svg>
   );
 }
@@ -82,7 +84,7 @@ export function LanguageSwitcher() {
             : "opacity-55 hover:bg-white/8 hover:opacity-100"
         }`}
       >
-        <FlagEn className="h-[13px] w-[22px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
+        <FlagUk className="h-[13px] w-[26px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
       </Link>
     </div>
   );
