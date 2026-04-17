@@ -48,11 +48,11 @@ export function LanguageSwitcher() {
   const enHref = localizePath("en", rest);
 
   const baseLink =
-    "flex items-center justify-center rounded-md p-1.5 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]";
+    "flex items-center justify-center rounded-md p-1.5 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black/80";
 
   return (
     <div
-      className="flex items-center gap-0.5 rounded-xl border border-white/12 bg-gradient-to-b from-white/[0.08] to-black/40 p-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md"
+      className="flex items-center gap-1 bg-transparent"
       role="group"
       aria-label="Taal / Language"
     >
@@ -65,11 +65,11 @@ export function LanguageSwitcher() {
         aria-current={locale === "nl" ? "page" : undefined}
         className={`${baseLink} ${
           locale === "nl"
-            ? "bg-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.12)]"
-            : "opacity-55 hover:bg-white/8 hover:opacity-100"
+            ? "opacity-100 drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
+            : "opacity-45 hover:opacity-[0.88]"
         }`}
       >
-        <FlagNl className="h-[13px] w-[19px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
+        <FlagNl className="h-[13px] w-[19px] rounded-[2px]" />
       </Link>
       <Link
         href={enHref}
@@ -80,11 +80,11 @@ export function LanguageSwitcher() {
         aria-current={locale === "en" ? "page" : undefined}
         className={`${baseLink} ${
           locale === "en"
-            ? "bg-white/12 shadow-[0_0_0_1px_rgba(255,255,255,0.12)]"
-            : "opacity-55 hover:bg-white/8 hover:opacity-100"
+            ? "opacity-100 drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
+            : "opacity-45 hover:opacity-[0.88]"
         }`}
       >
-        <FlagUk className="h-[13px] w-[26px] rounded-[2px] shadow-[0_1px_2px_rgba(0,0,0,0.35)]" />
+        <FlagUk className="h-[13px] w-[26px] rounded-[2px]" />
       </Link>
     </div>
   );
