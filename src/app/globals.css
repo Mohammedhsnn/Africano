@@ -64,3 +64,11 @@ body {
   color: var(--color-on-surface);
   font-family: var(--font-sans);
 }
+
+/* Keep iOS/Safari from showing the inline play overlay on hero background video */
+.hero-bg-video::-webkit-media-controls,
+.hero-bg-video::-webkit-media-controls-start-playback-button,
+.hero-bg-video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
