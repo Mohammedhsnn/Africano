@@ -17,9 +17,6 @@ export function HomeReviews({ reviews }: Props) {
     >
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 text-center md:mb-12">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-            {reviews.eyebrow}
-          </p>
           <h2
             id="home-reviews-heading"
             className="font-headline text-2xl font-black uppercase tracking-tighter text-on-surface md:text-3xl"

@@ -82,10 +82,8 @@ const en = {
     ctaSectionButton: "Contact",
     socialEyebrow: "Follow us on",
     reviews: {
-      eyebrow: "Facebook",
-      title: "What guests say",
-      subtitle:
-        "A few customer comments — read all reviews on our Facebook page.",
+      title: "Guest experiences",
+      subtitle: "Real feedback from people who’ve enjoyed our food.",
       starsAria: "5 out of 5 stars",
       facebookCta: "All reviews on Facebook",
       items: [

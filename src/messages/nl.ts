@@ -83,10 +83,8 @@ const nl = {
     ctaSectionButton: "Contact",
     socialEyebrow: "Volg ons ook op",
     reviews: {
-      eyebrow: "Facebook",
-      title: "Wat gasten zeggen",
-      subtitle:
-        "Een paar reacties van klanten — lees alle reviews op onze Facebook-pagina.",
+      title: "Ervaringen van gasten",
+      subtitle: "Echte reacties van mensen die bij ons hebben gegeten.",
       starsAria: "5 van 5 sterren",
       facebookCta: "Alle reviews op Facebook",
       items: [
