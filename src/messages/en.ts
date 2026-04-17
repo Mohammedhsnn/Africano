@@ -81,6 +81,31 @@ const en = {
       "Call, message, or email — we’re happy to think along about catering, the truck, or custom options.",
     ctaSectionButton: "Contact",
     socialEyebrow: "Follow us on",
+    reviews: {
+      eyebrow: "Facebook",
+      title: "What guests say",
+      subtitle:
+        "A few customer comments — read all reviews on our Facebook page.",
+      starsAria: "5 out of 5 stars",
+      facebookCta: "All reviews on Facebook",
+      items: [
+        {
+          quote:
+            "Fantastic food and really friendly service. Everything was fresh and flavourful — exactly what we wanted for our party!",
+          author: "Facebook review",
+        },
+        {
+          quote:
+            "The food truck was a hit. Quick, welcoming, and delicious. Highly recommend!",
+          author: "Facebook review",
+        },
+        {
+          quote:
+            "Halal catering with great attention to detail. Communication was smooth and our guests loved it.",
+          author: "Facebook review",
+        },
+      ],
+    },
   },
   catering: {
     eyebrow: "Catering — Africano Catering",

@@ -1,6 +1,7 @@
 import { PartyPopper, Truck, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HomeReviews } from "@/components/HomeReviews";
 import { MobileShell } from "@/components/MobileShell";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SocialLinks } from "@/components/SocialLinks";
@@ -246,6 +247,8 @@ export default async function HomePage({
           </Link>
         </div>
       </section>
+
+      <HomeReviews reviews={h.reviews} />
 
       <section className="bg-surface-container-low px-6 py-14 md:px-8 md:py-20">
         <div className="mx-auto max-w-2xl text-center">

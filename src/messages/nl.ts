@@ -82,6 +82,31 @@ const nl = {
       "Bel, app of mail — we denken graag met u mee over catering, truck of maatwerk.",
     ctaSectionButton: "Contact",
     socialEyebrow: "Volg ons ook op",
+    reviews: {
+      eyebrow: "Facebook",
+      title: "Wat gasten zeggen",
+      subtitle:
+        "Een paar reacties van klanten — lees alle reviews op onze Facebook-pagina.",
+      starsAria: "5 van 5 sterren",
+      facebookCta: "Alle reviews op Facebook",
+      items: [
+        {
+          quote:
+            "Fantastisch eten en een hele fijne service. Alles was vers en smaakvol — precies wat we hoopten voor ons feest!",
+          author: "Facebook-review",
+        },
+        {
+          quote:
+            "De foodtruck was een schot in de roos. Snel, vriendelijk en ontzettend lekker. Aanrader!",
+          author: "Facebook-review",
+        },
+        {
+          quote:
+            "Halal catering met veel aandacht voor detail. Communicatie verliep soepel en de gasten genoten volop.",
+          author: "Facebook-review",
+        },
+      ],
+    },
   },
   catering: {
     eyebrow: "Catering — Africano Catering",
