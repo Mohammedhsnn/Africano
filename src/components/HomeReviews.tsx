@@ -1,10 +1,6 @@
 import { Star } from "lucide-react";
 import type { Messages } from "@/messages/nl";
 
-/** Africano_df — reviews tab on Facebook */
-export const FACEBOOK_REVIEWS_URL =
-  "https://www.facebook.com/profile.php?id=100063039529960&sk=reviews";
-
 type Props = {
   reviews: Messages["home"]["reviews"];
 };
@@ -57,18 +53,6 @@ export function HomeReviews({ reviews }: Props) {
             </li>
           ))}
         </ul>
-
-        <div className="mt-10 flex justify-center">
-          <a
-            href={FACEBOOK_REVIEWS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-primary/25 bg-primary/10 px-6 py-3 text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-white"
-          >
-            {reviews.facebookCta}
-            <span aria-hidden>→</span>
-          </a>
-        </div>
       </div>
     </section>
   );

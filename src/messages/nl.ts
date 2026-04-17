@@ -86,7 +86,6 @@ const nl = {
       title: "Ervaringen van gasten",
       subtitle: "Echte reacties van mensen die bij ons hebben gegeten.",
       starsAria: "5 van 5 sterren",
-      facebookCta: "Alle reviews op Facebook",
       items: [
         {
           quote: "Heerlijk eten en Meer dan genoeg! Top!",

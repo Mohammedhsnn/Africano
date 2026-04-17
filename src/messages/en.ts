@@ -85,7 +85,6 @@ const en = {
       title: "Guest experiences",
       subtitle: "Real feedback from people who’ve enjoyed our food.",
       starsAria: "5 out of 5 stars",
-      facebookCta: "All reviews on Facebook",
       items: [
         {
           quote: "Delicious food and more than enough! Top!",
