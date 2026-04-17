@@ -34,23 +34,18 @@ export function HeroBackgroundVideo() {
     );
     io.observe(wrap);
 
-    const win = typeof window !== "undefined" ? window : undefined;
     let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    if (win && "requestIdleCallback" in win) {
-      idleId = win.requestIdleCallback(() => arm(), { timeout: 1200 });
-    } else {
-      timeoutId = win?.setTimeout(() => arm(), 250);
+    if (typeof window !== "undefined") {
+      idleId = window.requestIdleCallback(() => arm(), { timeout: 1200 });
     }
 
     return () => {
       cancelled = true;
       io.disconnect();
-      if (idleId !== undefined && win && "cancelIdleCallback" in win) {
-        win.cancelIdleCallback(idleId);
+      if (typeof window !== "undefined" && idleId !== undefined) {
+        window.cancelIdleCallback(idleId);
       }
-      if (timeoutId !== undefined) win?.clearTimeout(timeoutId);
     };
   }, []);
 
