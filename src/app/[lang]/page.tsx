@@ -135,7 +135,7 @@ export default async function HomePage({
     <MobileShell>
       <section className="relative -mt-16 flex min-h-[calc(100svh-4.5rem)] flex-col justify-end overflow-hidden bg-ink md:-mt-20 md:min-h-[min(100svh,64rem)]">
         <video
-          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center md:object-[50%_88%] [transform:translateZ(0)] [backface-visibility:hidden]"
+          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center [transform:translateZ(0)] [backface-visibility:hidden]"
           autoPlay
           muted
           loop
