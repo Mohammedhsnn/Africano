@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, MapPin, Truck } from "lucide-react";
+import { ArrowRight, Clock, MapPin, Truck } from "lucide-react";
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import type { Locale } from "@/lib/i18n/config";
@@ -132,10 +132,13 @@ export function TruckStatus({
   locale,
   labels,
   href,
+  variant = "card",
 }: {
   locale: Locale;
   labels: Labels;
   href: string;
+  /** `inline`: één regel tekst zonder kaart, voor onder de knoppen op mobiel. */
+  variant?: "card" | "inline";
 }) {
   const minute = useMinute();
   const stop = minute === null ? null : nextStop(datedStops(minute * 60_000));
@@ -147,6 +150,42 @@ export function TruckStatus({
     else if (stop.status === "tomorrow") when = `${labels.tomorrow} · ${stop.open} – ${stop.close}`;
     else
       when = `${labels.weekdays[stop.weekday]} ${formatDate(stop.date, locale)} · ${stop.open}`;
+  }
+
+  if (variant === "inline") {
+    return (
+      <Link
+        href={href}
+        className={`group inline-flex min-h-5 flex-wrap items-center gap-x-2 gap-y-0.5 transition-opacity duration-300 ${
+          stop ? "opacity-100" : "opacity-0"
+        }`}
+        aria-hidden={stop ? undefined : true}
+        tabIndex={stop ? undefined : -1}
+      >
+        <span
+          className={`h-2 w-2 shrink-0 rounded-full ${
+            stop?.status === "open" ? "animate-pulse bg-ember" : "bg-saffron"
+          }`}
+          aria-hidden
+        />
+        <span className="font-display text-[13px] font-bold uppercase tracking-[0.1em] text-saffron">
+          {when || "\u00a0"}
+        </span>
+        {stop ? (
+          <span className="text-sm text-cream/85">
+            {labels.truckName} ·{" "}
+            <span className="whitespace-nowrap">
+              {stop.city}, {stop.spot}
+              <ArrowRight
+                className="ml-1.5 inline h-3.5 w-3.5 align-[-0.15em] text-cream/60 transition-transform group-hover:translate-x-0.5"
+                strokeWidth={2.25}
+                aria-hidden
+              />
+            </span>
+          </span>
+        ) : null}
+      </Link>
+    );
   }
 
   return (

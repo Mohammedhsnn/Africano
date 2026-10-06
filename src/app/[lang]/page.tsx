@@ -135,7 +135,7 @@ export default async function HomePage({
     <MobileShell>
       <section className="relative -mt-16 flex min-h-[calc(100svh-4.5rem)] flex-col justify-end overflow-hidden bg-ink md:-mt-20 md:min-h-[min(100svh,64rem)]">
         <video
-          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center md:object-[50%_88%] [transform:translateZ(0)] [backface-visibility:hidden]"
+          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center max-md:top-auto max-md:h-[112%] md:object-[50%_88%] [transform:translateZ(0)] [backface-visibility:hidden]"
           autoPlay
           muted
           loop
@@ -154,15 +154,6 @@ export default async function HomePage({
           aria-hidden
         />
 
-        {/* Op mobiel bovenin, zodat de tekst onderin compact blijft en de video zichtbaar is. */}
-        <div className="absolute inset-x-5 top-[4.75rem] z-10 sm:inset-x-6 md:hidden">
-          <TruckStatus
-            locale={locale}
-            labels={dict.truck}
-            href={`${localizePath(locale, "/foodtruck")}#weekschema`}
-          />
-        </div>
-
         <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-6 px-5 pb-8 pt-32 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] sm:px-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:pb-14 lg:px-8">
           <div>
             <p className="font-script text-xl text-saffron md:text-2xl">
@@ -172,7 +163,7 @@ export default async function HomePage({
               <span className="block">{h.heroTitleLead}</span>
               <span className="block text-flame">{h.heroTitleAccent}</span>
             </h1>
-            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:760px)]:hidden md:text-base">
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:800px)]:hidden md:text-base">
               {h.heroSub}
             </p>
             <div className="mt-6 flex flex-wrap gap-3 [text-shadow:none]">
@@ -188,6 +179,15 @@ export default async function HomePage({
               >
                 {h.ctaTruck}
               </Link>
+            </div>
+            {/* Op mobiel als één compacte regel onder de knoppen, zodat de video de aandacht houdt. */}
+            <div className="mt-5 md:hidden">
+              <TruckStatus
+                locale={locale}
+                labels={dict.truck}
+                href={`${localizePath(locale, "/foodtruck")}#weekschema`}
+                variant="inline"
+              />
             </div>
           </div>
           <div className="hidden md:block [text-shadow:none]">
