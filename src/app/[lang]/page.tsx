@@ -133,29 +133,19 @@ export default async function HomePage({
 
   return (
     <MobileShell>
-      <section className="relative -mt-16 flex min-h-[calc(100svh-4.5rem)] flex-col justify-end overflow-hidden bg-ink md:-mt-20 md:min-h-[min(100svh,64rem)]">
-        <video
-          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center max-md:top-auto max-md:h-[112%] md:object-[50%_88%] [transform:translateZ(0)] [backface-visibility:hidden]"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/media/africano-hero-poster.jpg"
-          disablePictureInPicture
-          disableRemotePlayback
-          tabIndex={-1}
-          aria-hidden
-        >
-          <source src={heroVideoSrc} type="video/mp4" />
-        </video>
+      <section className="relative -mt-16 flex min-h-[calc(100svh-4.5rem)] flex-col justify-end overflow-hidden bg-ink md:-mt-20 md:min-h-[min(100svh,64rem)] md:justify-center">
+        {/* Desktop: wazige achtergrond, de video zelf staat volledig in een kader rechts. */}
         <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.9)_38%,rgba(11,9,8,0.55)_50%,rgba(11,9,8,0.12)_64%,rgba(11,9,8,0.05)_84%,rgba(11,9,8,0.45)_100%)] md:bg-[linear-gradient(to_top,#0b0908_0%,transparent_22%),linear-gradient(95deg,rgba(11,9,8,0.82)_0%,rgba(11,9,8,0.5)_34%,rgba(11,9,8,0.1)_62%,transparent_80%)]"
+          className="pointer-events-none absolute inset-0 hidden scale-110 bg-[url(/media/africano-hero-poster.jpg)] bg-cover bg-center opacity-35 blur-2xl md:block"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.9)_34%,rgba(11,9,8,0.5)_46%,rgba(11,9,8,0.1)_60%,rgba(11,9,8,0.05)_84%,rgba(11,9,8,0.45)_100%)] md:bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.55)_40%,rgba(11,9,8,0.7)_100%)]"
           aria-hidden
         />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-6 px-5 pb-8 pt-32 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] sm:px-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:pb-14 lg:px-8">
-          <div>
+        <div className="mx-auto grid w-full max-w-6xl gap-6 px-5 pb-8 pt-32 sm:px-6 md:relative md:z-10 md:grid-cols-[1fr_auto] md:items-center md:gap-10 md:pb-12 md:pt-24 lg:gap-16 lg:px-8">
+          <div className="relative z-10 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] md:[text-shadow:none]">
             <p className="font-script text-xl text-saffron md:text-2xl">
               {h.heroBadge}
             </p>
@@ -163,7 +153,7 @@ export default async function HomePage({
               <span className="block">{h.heroTitleLead}</span>
               <span className="block text-flame">{h.heroTitleAccent}</span>
             </h1>
-            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:800px)]:hidden md:text-base">
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:880px)]:hidden md:text-base">
               {h.heroSub}
             </p>
             <div className="mt-6 flex flex-wrap gap-3 [text-shadow:none]">
@@ -189,13 +179,32 @@ export default async function HomePage({
                 variant="inline"
               />
             </div>
+            <div className="mt-8 hidden md:block">
+              <TruckStatus
+                locale={locale}
+                labels={dict.truck}
+                href={`${localizePath(locale, "/foodtruck")}#weekschema`}
+              />
+            </div>
           </div>
-          <div className="hidden md:block [text-shadow:none]">
-            <TruckStatus
-              locale={locale}
-              labels={dict.truck}
-              href={`${localizePath(locale, "/foodtruck")}#weekschema`}
-            />
+
+          {/* Mobiel: video vult het hele scherm. Desktop: de staande video volledig in beeld. */}
+          <div className="max-md:absolute max-md:inset-0 max-md:z-0 md:relative md:aspect-[9/16] md:h-[min(62svh,34rem)] md:overflow-hidden md:rounded-xl md:border md:border-white/10 md:shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] lg:h-[min(76svh,46rem)]">
+            <video
+              className="hero-bg-video pointer-events-none h-full w-full object-cover object-center [transform:translateZ(0)] [backface-visibility:hidden]"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster="/media/africano-hero-poster.jpg"
+              disablePictureInPicture
+              disableRemotePlayback
+              tabIndex={-1}
+              aria-hidden
+            >
+              <source src={heroVideoSrc} type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
