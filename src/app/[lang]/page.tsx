@@ -150,42 +150,53 @@ export default async function HomePage({
           <source src={heroVideoSrc} type="video/mp4" />
         </video>
         <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.95)_52%,rgba(11,9,8,0.5)_70%,rgba(11,9,8,0.15)_85%,rgba(11,9,8,0.5)_100%)] md:bg-[linear-gradient(to_top,#0b0908_0%,transparent_32%),linear-gradient(100deg,rgba(11,9,8,0.95)_0%,rgba(11,9,8,0.78)_45%,rgba(11,9,8,0.25)_80%)]"
+          className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.9)_38%,rgba(11,9,8,0.55)_50%,rgba(11,9,8,0.12)_64%,rgba(11,9,8,0.05)_84%,rgba(11,9,8,0.45)_100%)] md:bg-[linear-gradient(to_top,#0b0908_0%,transparent_22%),linear-gradient(95deg,rgba(11,9,8,0.82)_0%,rgba(11,9,8,0.5)_34%,rgba(11,9,8,0.1)_62%,transparent_80%)]"
           aria-hidden
         />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-8 px-5 pb-10 pt-32 sm:px-6 md:grid-cols-[1fr_auto] md:items-end md:pb-20 lg:px-8">
-          <div>
-            <p className="font-script text-2xl text-saffron md:text-3xl">
-              {h.heroBadge}
-            </p>
-            <h1 className="mt-3 font-display text-[clamp(3.4rem,12vw,7.75rem)] font-extrabold uppercase leading-[0.86] tracking-[-0.01em] text-cream">
-              <span className="block">{h.heroTitleLead}</span>
-              <span className="block text-flame">{h.heroTitleAccent}</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-cream/80 md:text-lg">
-              {h.heroSub}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href={localizePath(locale, "/catering")}
-                className="btn bg-flame text-white hover:bg-flame-deep"
-              >
-                {h.ctaCatering}
-              </Link>
-              <Link
-                href={localizePath(locale, "/foodtruck")}
-                className="btn border-cream/35 text-cream hover:border-cream hover:bg-cream hover:text-ink"
-              >
-                {h.ctaTruck}
-              </Link>
-            </div>
-          </div>
+        {/* Op mobiel bovenin, zodat de tekst onderin compact blijft en de video zichtbaar is. */}
+        <div className="absolute inset-x-5 top-[4.75rem] z-10 sm:inset-x-6 md:hidden">
           <TruckStatus
             locale={locale}
             labels={dict.truck}
             href={`${localizePath(locale, "/foodtruck")}#weekschema`}
           />
+        </div>
+
+        <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-6 px-5 pb-8 pt-32 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] sm:px-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:pb-14 lg:px-8">
+          <div>
+            <p className="font-script text-xl text-saffron md:text-2xl">
+              {h.heroBadge}
+            </p>
+            <h1 className="mt-2 font-display text-[length:clamp(2.25rem,10vw,2.75rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.005em] text-cream md:text-[length:clamp(2.75rem,min(5.5vw,8.5svh),4.5rem)]">
+              <span className="block">{h.heroTitleLead}</span>
+              <span className="block text-flame">{h.heroTitleAccent}</span>
+            </h1>
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:760px)]:hidden md:text-base">
+              {h.heroSub}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 [text-shadow:none]">
+              <Link
+                href={localizePath(locale, "/catering")}
+                className="btn bg-flame px-4 text-[15px] text-white hover:bg-flame-deep sm:px-[1.4rem] sm:text-[1.0625rem]"
+              >
+                {h.ctaCatering}
+              </Link>
+              <Link
+                href={localizePath(locale, "/foodtruck")}
+                className="btn border-cream/35 bg-ink/30 px-4 text-[15px] text-cream backdrop-blur-sm hover:border-cream hover:bg-cream hover:text-ink sm:px-[1.4rem] sm:text-[1.0625rem]"
+              >
+                {h.ctaTruck}
+              </Link>
+            </div>
+          </div>
+          <div className="hidden md:block [text-shadow:none]">
+            <TruckStatus
+              locale={locale}
+              labels={dict.truck}
+              href={`${localizePath(locale, "/foodtruck")}#weekschema`}
+            />
+          </div>
         </div>
       </section>
 
