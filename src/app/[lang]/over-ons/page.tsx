@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HalalStamp } from "@/components/HalalStamp";
 import { MobileShell } from "@/components/MobileShell";
 import { SiteFooter } from "@/components/SiteFooter";
 import type { Locale } from "@/lib/i18n/config";
@@ -19,47 +20,50 @@ export default async function OverOnsPage({
 
   return (
     <MobileShell>
-      <main className="flex flex-1 flex-col px-4 pb-12 md:px-8">
-        <header className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
-          <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.3em] text-primary">
-            {a.eyebrow}
-          </span>
-          <h1 className="font-headline text-3xl font-black uppercase leading-tight tracking-tighter text-white md:text-5xl">
-            {a.title}{" "}
-            <span className="text-primary">{a.titleYear}</span>
-          </h1>
-        </header>
+      <main className="flex flex-1 flex-col px-5 pb-16 pt-10 sm:px-6 md:pb-24 md:pt-16 lg:px-8">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
+          <header className="relative">
+            <p className="font-script text-2xl text-saffron md:text-3xl">
+              {a.eyebrow}
+            </p>
+            <h1 className="mt-2 font-display text-[clamp(3rem,8vw,5.5rem)] font-extrabold uppercase leading-[0.88] text-cream">
+              {a.title}{" "}
+              <span className="text-flame">{a.titleYear}</span>
+            </h1>
+            <HalalStamp label={dict.home.halalStamp} className="mt-10 hidden md:flex" />
+          </header>
 
-        <div className="mx-auto max-w-3xl space-y-8 text-stone-300">
-          <p className="text-lg leading-relaxed">{a.p1}</p>
-          <p className="leading-relaxed">{a.p2}</p>
-          <p className="leading-relaxed">{a.p3}</p>
+          <div className="space-y-6 text-cream/80">
+            <p className="text-xl leading-relaxed text-cream">{a.p1}</p>
+            <p className="text-lg leading-relaxed">{a.p2}</p>
+            <p className="text-lg leading-relaxed">{a.p3}</p>
+          </div>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-4xl gap-4 md:grid-cols-3">
+        <ul className="mx-auto mt-16 grid w-full max-w-6xl gap-4 md:grid-cols-3 md:gap-6">
           {a.pillars.map((x) => (
-            <div
+            <li
               key={x.n}
-              className="rounded-xl border border-white/10 bg-stone-950/90 p-6"
+              className="rounded-lg border border-white/[0.08] bg-coal p-6 md:p-7"
             >
-              <span className="font-headline text-2xl font-black text-primary">
+              <span className="font-display text-5xl font-extrabold leading-none text-flame">
                 {x.n}
               </span>
-              <h2 className="mt-3 font-headline text-sm font-bold uppercase tracking-wide text-white">
+              <h2 className="mt-4 font-display text-2xl font-bold uppercase leading-tight text-cream">
                 {x.t}
               </h2>
-              <p className="mt-2 text-sm text-stone-500">{x.d}</p>
-            </div>
+              <p className="mt-2 leading-relaxed text-cream/65">{x.d}</p>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mx-auto mt-14 flex max-w-3xl flex-col gap-4 rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-8 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <div>
-            <p className="text-sm text-stone-300">{a.ctaText}</p>
-          </div>
+        <div className="mx-auto mt-14 flex w-full max-w-6xl flex-col gap-5 rounded-lg bg-flame p-7 text-white md:flex-row md:items-center md:justify-between md:p-10">
+          <p className="max-w-xl font-display text-2xl font-bold uppercase leading-tight md:text-3xl">
+            {a.ctaText}
+          </p>
           <Link
             href={localizePath(locale, "/contact")}
-            className="inline-block shrink-0 rounded-lg bg-primary px-6 py-3 text-xs font-bold uppercase tracking-widest text-white hover:bg-primary-container"
+            className="btn shrink-0 bg-white text-flame hover:bg-ink hover:text-white"
           >
             {a.ctaButton}
           </Link>

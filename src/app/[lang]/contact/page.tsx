@@ -1,4 +1,10 @@
-import { CalendarCheck, Mail, MessageCircle, Phone } from "lucide-react";
+import {
+  CalendarCheck,
+  Mail,
+  MessageCircle,
+  Phone,
+  type LucideIcon,
+} from "lucide-react";
 import { notFound } from "next/navigation";
 import { MobileShell } from "@/components/MobileShell";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -20,111 +26,88 @@ export default async function ContactPage({
   const dict = getDictionary(locale);
   const c = dict.contact;
 
+  const options: {
+    href: string;
+    icon: LucideIcon;
+    label: string;
+    value: string;
+    hint?: string;
+    external?: boolean;
+  }[] = [
+    { href: `tel:${tel}`, icon: Phone, label: c.phone, value: telDisplay },
+    {
+      href: `https://wa.me/${tel}`,
+      icon: MessageCircle,
+      label: c.whatsapp,
+      value: telDisplay,
+      hint: c.whatsappHint,
+      external: true,
+    },
+    {
+      href: "mailto:info@africanocatering.nl",
+      icon: Mail,
+      label: c.email,
+      value: "info@africanocatering.nl",
+    },
+    {
+      href: "mailto:reservations@africanocatering.nl",
+      icon: CalendarCheck,
+      label: c.reservations,
+      value: "reservations@africanocatering.nl",
+    },
+  ];
+
   return (
     <MobileShell>
-      <main className="flex flex-1 flex-col px-4 pb-12 md:px-12 lg:px-24">
-        <header className="mx-auto mb-12 max-w-4xl text-center">
-          <h1 className="font-headline text-3xl font-extrabold uppercase leading-tight tracking-tighter text-white md:text-5xl">
-            {c.title} <span className="text-primary">{c.titleAccent}</span>
+      <main className="flex flex-1 flex-col px-5 pb-16 pt-10 sm:px-6 md:pb-24 md:pt-16 lg:px-8">
+        <header className="mx-auto mb-10 w-full max-w-5xl md:mb-14">
+          <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] font-extrabold uppercase leading-[0.88] text-cream">
+            {c.title} <span className="text-flame">{c.titleAccent}</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg font-light leading-relaxed text-stone-400">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-cream/75">
             {c.intro}
           </p>
         </header>
 
-        <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-2">
-          <a
-            href={`tel:${tel}`}
-            className="group flex gap-4 rounded-2xl border border-white/10 bg-stone-950/80 p-6 transition-colors hover:border-primary/50"
-          >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-stone-900 group-hover:bg-primary">
-              <Phone
-                className="h-7 w-7 text-white"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                {c.phone}
-              </p>
-              <p className="mt-1 text-lg font-medium text-white">{telDisplay}</p>
-            </div>
-          </a>
+        <ul className="mx-auto grid w-full max-w-5xl gap-4 md:grid-cols-2 md:gap-5">
+          {options.map(({ href, icon: Icon, label, value, hint, external }) => (
+            <li key={label}>
+              <a
+                href={href}
+                {...(external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="group flex h-full items-center gap-5 rounded-lg border border-white/[0.08] bg-coal p-5 transition-colors hover:border-flame md:p-6"
+              >
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-flame text-white transition-colors group-hover:bg-white group-hover:text-flame">
+                  <Icon className="h-6 w-6" strokeWidth={2} aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-display text-sm font-bold uppercase tracking-[0.12em] text-saffron">
+                    {label}
+                  </span>
+                  <span className="mt-0.5 block break-all text-lg font-medium text-cream">
+                    {value}
+                  </span>
+                  {hint ? (
+                    <span className="mt-0.5 block text-sm text-cream/55">
+                      {hint}
+                    </span>
+                  ) : null}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          <a
-            href={`https://wa.me/${tel}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex gap-4 rounded-2xl border border-white/10 bg-stone-950/80 p-6 transition-colors hover:border-primary/50"
-          >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-stone-900 group-hover:bg-primary">
-              <MessageCircle
-                className="h-7 w-7 text-white"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                {c.whatsapp}
-              </p>
-              <p className="mt-1 text-lg font-medium text-white">{telDisplay}</p>
-              <p className="mt-1 text-xs text-stone-500">{c.whatsappHint}</p>
-            </div>
-          </a>
-
-          <a
-            href="mailto:info@africanocatering.nl"
-            className="group flex gap-4 rounded-2xl border border-white/10 bg-stone-950/80 p-6 transition-colors hover:border-primary/50"
-          >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-stone-900 group-hover:bg-primary">
-              <Mail
-                className="h-7 w-7 text-white"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                {c.email}
-              </p>
-              <p className="mt-1 break-all text-lg font-medium text-white">
-                info@africanocatering.nl
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="mailto:reservations@africanocatering.nl"
-            className="group flex gap-4 rounded-2xl border border-white/10 bg-stone-950/80 p-6 transition-colors hover:border-primary/50"
-          >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-stone-900 group-hover:bg-primary">
-              <CalendarCheck
-                className="h-7 w-7 text-white"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                {c.reservations}
-              </p>
-              <p className="mt-1 break-all text-lg font-medium text-white">
-                reservations@africanocatering.nl
-              </p>
-            </div>
-          </a>
-        </div>
-
-        <p className="mx-auto mt-12 max-w-2xl text-center text-sm text-stone-500">
-          {c.footnote}
-        </p>
-        <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col items-center">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-            {c.socialEyebrow}
-          </p>
-          <SocialLinks />
+        <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-6 border-t border-white/[0.08] pt-8 md:flex-row md:items-center md:justify-between">
+          <p className="max-w-xl text-cream/60">{c.footnote}</p>
+          <div className="flex flex-col gap-2 md:items-end">
+            <p className="font-display text-sm font-bold uppercase tracking-[0.12em] text-saffron">
+              {c.socialEyebrow}
+            </p>
+            <SocialLinks className="flex flex-wrap items-center gap-2" />
+          </div>
         </div>
       </main>
       <SiteFooter locale={locale} />

@@ -25,22 +25,24 @@ const items: SocialItem[] = [
 ];
 
 type Props = {
-  tone?: "dark" | "light";
+  /** Achtergrond waarop de links staan. */
+  tone?: "dark" | "light" | "red";
   className?: string;
   showIcons?: boolean;
 };
 
-export function SocialLinks({ tone = "dark", className, showIcons = true }: Props) {
-  const palette =
-    tone === "light"
-      ? "border-black/10 bg-white text-stone-800 hover:border-primary/40 hover:text-primary"
-      : "border-white/10 bg-white/5 text-stone-200 hover:border-primary/40 hover:bg-white/10 hover:text-white";
+const palettes = {
+  dark: "border-white/15 text-cream/85 hover:border-ember hover:text-white",
+  light: "border-ink/15 text-ink hover:border-flame hover:text-flame",
+  red: "border-white/50 text-white hover:border-white hover:bg-white hover:text-flame",
+};
 
+export function SocialLinks({ tone = "dark", className, showIcons = true }: Props) {
   return (
     <div
       className={
         className ??
-        "flex flex-wrap items-center justify-center gap-2 md:justify-start"
+        "flex flex-wrap items-center gap-2"
       }
     >
       {items.map(({ href, label, Icon }) => (
@@ -50,7 +52,7 @@ export function SocialLinks({ tone = "dark", className, showIcons = true }: Prop
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest transition-colors ${palette}`}
+          className={`inline-flex items-center gap-2 rounded-md border px-3 py-1.5 font-display text-sm font-semibold uppercase tracking-[0.08em] transition-colors ${palettes[tone]}`}
         >
           {showIcons ? <Icon className="h-3.5 w-3.5" aria-hidden /> : null}
           {label}
@@ -59,4 +61,3 @@ export function SocialLinks({ tone = "dark", className, showIcons = true }: Prop
     </div>
   );
 }
-

@@ -48,7 +48,7 @@ export function LanguageSwitcher() {
   const enHref = localizePath("en", rest);
 
   const baseLink =
-    "flex items-center justify-center rounded-md p-1.5 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black/80";
+    "flex items-center justify-center rounded-md p-1.5 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-black/80";
 
   return (
     <div

@@ -3,7 +3,7 @@ const nl = {
     siteName: "Africano Catering",
     defaultTitle: "Halal Catering & Foodtruck",
     defaultDescription:
-      "Africano Catering verzorgt halal catering en foodtruck service voor feesten, bruiloften en bedrijfsevents. Verse gerechten met karakter, vanaf 20 personen.",
+      "Africano Catering verzorgt halal catering en foodtruck service voor feesten, bruiloften en bedrijfsevents. Verse gerechten met karakter, vanaf 20 personen. Elke week met de foodtruck in Goes, Hulst en Terneuzen.",
     keywords: [
       "Africano Catering",
       "halal catering",
@@ -13,6 +13,10 @@ const nl = {
       "event catering",
       "bruiloft catering",
       "bedrijfsfeest catering",
+      "foodtruck Goes",
+      "foodtruck Hulst",
+      "foodtruck Terneuzen",
+      "rice bowl",
     ],
   },
   nav: {
@@ -46,17 +50,46 @@ const nl = {
     motto: "Smaak die blijft hangen",
   },
   home: {
-    heroBadge: "Sinds 2021",
-    heroTitleLead: "Africano Catering",
-    heroTitleAccent: "smaak met zorg,",
-    heroTitleRest: "op uw feest of event.",
+    heroBadge: "Sinds 2021 · uit Zeeland",
+    heroTitleLead: "Vers. Smaakvol.",
+    heroTitleAccent: "100% halal.",
     heroSub:
-      "Voor particulieren en bedrijven: catering en foodtruck, met eigen gerechten, bijzondere kruiden en traditionele Somalische smaken.",
-    ctaCatering: "Ontdek catering",
-    ctaContact: "Neem contact op",
-    aboutEyebrow: "Over ons",
+      "Catering voor bruiloften, feesten en bedrijven — en elke week staat onze foodtruck in Goes, Hulst en Terneuzen. Eigen recepten, bijzondere kruiden en Somalische klassiekers.",
+    ctaCatering: "Bekijk catering",
+    ctaTruck: "Naar de foodtruck",
+    band: [
+      "100% halal",
+      "Verse ingrediënten",
+      "Altijd vers bereid",
+      "Rice bowls",
+      "Wraps",
+      "Sambosa",
+      "Catering vanaf 20 personen",
+    ],
+    servicesEyebrow: "Wat we doen",
+    servicesTitle: "Catering & foodtruck",
+    cateringTitle: "Catering op maat",
+    cateringBlurb:
+      "Vanaf {strong} voor bruiloften, verjaardagen en bedrijfsfeesten. Verse gerechten, aangepast aan uw wensen — wij regelen het eten, u geniet zorgeloos.",
+    cateringBlurbStrong: "20 personen",
+    cateringMore: "Meer over catering",
+    cateringImageAlt: "Africano catering buffet met warmhoudschalen",
+    truckTitle: "De foodtruck",
+    truckBlurb:
+      "Elke week op vaste plekken in Zeeland, en te boeken voor uw feest of event. Rice bowls, wraps en sambosa — vers voor uw neus bereid.",
+    truckMore: "Menu & weekschema",
+    truckImageAlt: "De Africano foodtruck met rode bestickering",
+    scheduleTitle: "Elke week",
+    scheduleTitleAccent: "staan wij hier:",
+    scheduleText:
+      "Kom langs bij de foodtruck voor een verse rice bowl, wrap of sambosa.",
+    scheduleCta: "Bekijk menu & prijzen",
+    aboutEyebrow: "Sinds 2021",
     aboutHeading: "Waar we voor staan",
-    aboutLink: "Lees het hele verhaal →",
+    aboutText:
+      "Africano Catering kookt sinds 2021 voor particulieren en bedrijven. Met eigen recepten, zorgvuldig gekozen kruiden en Somalische klassiekers die we op traditionele wijze bereiden.",
+    aboutLink: "Lees ons verhaal",
+    halalStamp: "100% halal",
     cardEventsTitle: "Feesten & events",
     cardEventsText:
       "Catering voor feesten, evenementen en speciale gelegenheden — met passie bereid.",
@@ -66,21 +99,16 @@ const nl = {
     cardTruckTitle: "Foodtruck",
     cardTruckText:
       "Rice bowls, toppings en huisgemaakte sauzen — vers op locatie.",
-    cateringBlurb:
-      "Vanaf {strong} voor bruiloften, verjaardagen en bedrijfsfeesten. Verse gerechten, aangepast aan uw wensen — wij regelen het eten, u geniet zorgeloos.",
-    cateringBlurbStrong: "20 personen",
-    cateringMore: "Meer over catering →",
-    truckBlurb:
-      "Wij komen naar uw locatie en bereiden vers ter plekke — gezellige sfeer, lekker eten voor uw gasten.",
-    truckMore: "Meer over de truck →",
     shopTitle: "Online shop",
     shopText:
       "Onze shop is nog in aanbouw. Tot die tijd helpen we u graag via e-mail met bestellingen en aanvragen.",
     shopCta: "Shop-info",
     ctaSectionTitle: "Laten we praten",
     ctaSectionText:
-      "Bel, app of mail — we denken graag met u mee over catering, truck of maatwerk.",
-    ctaSectionButton: "Contact",
+      "Bel, app of mail — we denken graag met u mee over catering, de foodtruck of maatwerk.",
+    ctaCall: "Bel ons",
+    ctaWhatsapp: "WhatsApp",
+    ctaMail: "Mail ons",
     socialEyebrow: "Volg ons ook op",
     reviews: {
       title: "Ervaringen van gasten",
@@ -103,8 +131,25 @@ const nl = {
       ],
     },
   },
+  truck: {
+    truckName: "Foodtruck",
+    weekdays: [
+      "Zondag",
+      "Maandag",
+      "Dinsdag",
+      "Woensdag",
+      "Donderdag",
+      "Vrijdag",
+      "Zaterdag",
+    ],
+    openNow: "Nu open",
+    today: "Vandaag",
+    tomorrow: "Morgen",
+    until: "tot",
+    route: "Route",
+  },
   catering: {
-    eyebrow: "Catering — Africano Catering",
+    eyebrow: "Voor feesten & events",
     title: "Catering op maat",
     intro:
       "Geen online menu: wij bespreken graag persoonlijk wat er bij uw gelegenheid past.",
@@ -127,13 +172,121 @@ const nl = {
     imageAlt: "Sfeervolle Africano catering opstelling",
   },
   foodtruck: {
-    eyebrow: "Food truck — Africano Catering",
-    title: "De Africano food truck op uw locatie",
+    eyebrow: "Africano Foodtruck",
+    title: "Rice bowls, wraps & sambosa",
+    titleAccent: "Altijd vers bereid!",
     intro:
-      "Wij komen naar u toe en bereiden het eten vers ter plekke — gezellige sfeer en smaakvolle maaltijden voor uw gasten.",
-    chips: ["Vers op locatie", "Snelle service", "Unieke rice bowls"],
-    imageAlt: "Africano Foodtruck op locatie",
-    body: "De Africano Foodtruck is te boeken voor feesten en evenementen. Denk aan onze rice bowls met verschillende toppings en huisgemaakte sauzen — vers bereid waar u bent.",
+      "Elke week staat onze foodtruck in Goes, Hulst en Terneuzen. Kom langs voor een verse rice bowl, wrap of sambosa — of boek de truck voor uw eigen feest of event.",
+    chips: ["Vers", "Smaakvol", "100% halal"],
+    ctaMenu: "Bekijk het menu",
+    ctaSchedule: "Waar staan we?",
+    imageAlt:
+      "De Africano foodtruck met rode bestickering: rice bowl, wraps, sambosa",
+    scheduleTitle: "Elke week",
+    scheduleTitleAccent: "staan wij hier:",
+    scheduleText:
+      "Vaste standplaatsen, elke week. Wijzigingen en extra locaties delen we via Instagram.",
+    scheduleInstagram: "Volg @africano_df",
+    slogan: "Wij zien je graag bij Africano!",
+    menu: {
+      title: "Op het menu",
+      subtitle: "Prijzen onder voorbehoud · alles is 100% halal",
+      bowl: {
+        name: "Rice bowl",
+        meats: "Kip • Rundvlees • Lamsvlees",
+        meatsNote: "Gemengd mogelijk",
+        sizes: [
+          { name: "Klein", price: "€9", note: "1 schep vlees – kies 1 soort" },
+          {
+            name: "Normaal",
+            price: "€12",
+            note: "2 scheppen vlees – kies 2 soorten of dubbel",
+          },
+          {
+            name: "Groot",
+            price: "€15",
+            note: "3 scheppen vlees – mix mogelijk",
+          },
+          { name: "Africano XXL", price: "€19,95", note: "Kip + rund + lam" },
+        ],
+        footnote: "Alle bowls worden geserveerd met rijst, salade en saus.",
+        imageAlt: "Rice bowl met verse toppings en saus",
+      },
+      wrap: {
+        name: "Qunbala wrap",
+        price: "€7,00",
+        items: ["Frietjes", "Falafel", "Aubergine", "Geraspte kaas"],
+        extrasLabel: "Extra",
+        extras: [
+          { name: "Ei", price: "+ €1" },
+          { name: "Chips", price: "+ €0,50" },
+          { name: "Kip", price: "+ €2" },
+        ],
+        imageAlt: "Qunbala wrap, doormidden gesneden",
+      },
+      sides: {
+        title: "Bijgerechten",
+        items: [
+          {
+            name: "Sambosa",
+            note: "Gevuld met gehakt, kip of veggie",
+            price: "€2,50",
+          },
+          { name: "Basbusa", note: "Dessert", price: "€3,75" },
+          { name: "Koude dranken", note: "Uit de koeling", price: "" },
+        ],
+        sambosaAlt: "Twee sambosa's",
+        basbusaAlt: "Een stuk basbusa met pistache",
+      },
+      build: {
+        title: "Stel uw bowl samen",
+        steps: [
+          {
+            title: "Basis",
+            items: [{ name: "Rijst" }, { name: "Salade" }, { name: "Frietjes" }],
+          },
+          {
+            title: "Toppings",
+            items: [
+              { name: "Komkommer" },
+              { name: "Tomaat" },
+              { name: "Paprika" },
+              { name: "Mais" },
+              { name: "Kikkererwten" },
+              { name: "Kaas", note: "+ €1" },
+              { name: "Rode kool" },
+            ],
+          },
+          {
+            title: "Saus",
+            items: [
+              { name: "Witte saus" },
+              { name: "Rode saus" },
+              { name: "Groene saus", note: "pittig" },
+              { name: "Samurai saus" },
+              { name: "Mayo" },
+              { name: "Shata" },
+              { name: "Tahina saus" },
+            ],
+          },
+        ],
+      },
+    },
+    cardsTitle: "Flyer & menukaart",
+    cardsText:
+      "Liever de originele kaart bekijken of delen? Tik op een afbeelding om hem groot te openen.",
+    flyerLabel: "Flyer & weekschema",
+    flyerAlt:
+      "Flyer van de Africano Foodtruck met het weekschema per dag en de menu-onderdelen",
+    menuCardLabel: "Menukaart",
+    menuCardAlt:
+      "Menukaart van Africano met rice bowls, Qunbala wrap, bijgerechten, toppings en sauzen",
+    enlarge: "Vergroten",
+    close: "Sluiten",
+    download: "Downloaden",
+    bookingEyebrow: "Truck boeken",
+    bookingTitle: "De foodtruck op uw feest",
+    body: "De Africano Foodtruck is ook te boeken voor feesten en evenementen. Denk aan onze rice bowls met verschillende toppings en huisgemaakte sauzen — vers bereid waar u bent.",
     suitableFor: "Geschikt voor",
     suitableList: [
       "Verjaardagsfeesten",
@@ -189,7 +342,7 @@ const nl = {
     ctaButton: "Contact",
   },
   shop: {
-    eyebrow: "Shop — Africano Catering",
+    eyebrow: "Africano Shop",
     title: "Binnenkort online",
     p1: "Onze shop is op dit moment nog {strong}.",
     p1Strong: "niet beschikbaar",

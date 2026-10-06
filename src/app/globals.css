@@ -1,68 +1,101 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Africano / Stitch design tokens */
-  --color-tertiary: #5c4000;
-  --color-primary-container: #b41f23;
-  --color-on-error: #ffffff;
-  --color-surface-container-low: #f3f3f3;
-  --color-inverse-surface: #303030;
-  --color-secondary-container: #e2e2e2;
-  --color-secondary-fixed-dim: #c6c6c6;
-  --color-surface-tint: #b72125;
-  --color-surface-bright: #f9f9f9;
-  --color-on-tertiary: #ffffff;
-  --color-tertiary-fixed: #ffdea9;
-  --color-on-tertiary-container: #fdcf80;
-  --color-on-background: #1b1b1b;
-  --color-on-surface: #1b1b1b;
-  --color-on-secondary-fixed: #1b1b1b;
-  --color-on-secondary-container: #646464;
-  --color-on-primary-container: #ffc9c4;
-  --color-secondary: #5e5e5e;
-  --color-on-surface-variant: #5a403e;
-  --color-on-primary-fixed-variant: #930011;
-  --color-outline: #8f706d;
-  --color-on-tertiary-fixed: #271900;
-  --color-on-primary-fixed: #410003;
-  --color-on-error-container: #93000a;
-  --color-primary: #900010;
-  --color-surface-container: #eeeeee;
-  --color-surface: #f9f9f9;
-  --color-surface-dim: #dadada;
-  --color-on-tertiary-fixed-variant: #5e4200;
-  --color-secondary-fixed: #e2e2e2;
-  --color-surface-container-highest: #e2e2e2;
-  --color-surface-variant: #e2e2e2;
-  --color-on-primary: #ffffff;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-secondary: #ffffff;
-  --color-primary-fixed-dim: #ffb3ad;
-  --color-on-secondary-fixed-variant: #474747;
-  --color-surface-container-high: #e8e8e8;
-  --color-outline-variant: #e3beba;
-  --color-error-container: #ffdad6;
-  --color-background: #f9f9f9;
-  --color-tertiary-container: #785713;
-  --color-tertiary-fixed-dim: #ecc072;
-  --color-inverse-primary: #ffb3ad;
-  --color-primary-fixed: #ffdad6;
-  --color-inverse-on-surface: #f1f1f1;
-  --color-error: #ba1a1a;
+  /* Africano huisstijl — kleuren van de truckbestickering en de flyer */
+  --color-ink: #0b0908;
+  --color-coal: #161211;
+  --color-char: #2a211d;
+  --color-cream: #f7efe3;
+  --color-cream-deep: #ecdcc5;
+  --color-flame: #d7191f;
+  --color-flame-deep: #a80f15;
+  --color-ember: #ff5c50;
+  --color-saffron: #f6a623;
 
-  --radius-DEFAULT: 0.125rem;
-  --radius-lg: 0.25rem;
-  --radius-xl: 0.5rem;
-  --radius-full: 0.75rem;
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", ui-sans-serif,
+    sans-serif;
+  --font-script: var(--font-kaushan), "Brush Script MT", cursive;
+}
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-headline: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
-  background: #050505;
-  color: var(--color-on-surface);
-  font-family: var(--font-sans);
+  background: #0b0908;
+  color: #f7efe3;
+  font-family: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Knoppen */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.375rem;
+  border: 2px solid transparent;
+  padding: 0.75rem 1.4rem;
+  font-family: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+/* Rode penseelstreek achter koppen, zoals op de flyer */
+@utility brush {
+  background-color: #d7191f;
+  clip-path: polygon(
+    1% 12%,
+    9% 2%,
+    31% 6%,
+    58% 0,
+    84% 5%,
+    99% 0,
+    97% 38%,
+    100% 72%,
+    96% 100%,
+    71% 94%,
+    44% 100%,
+    18% 95%,
+    2% 100%,
+    3% 64%,
+    0 36%
+  );
+}
+
+/* Doorlopende band met kernwaarden */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* Background hero video: no native controls / overlay play affordance (esp. iOS Safari) */
@@ -77,4 +110,8 @@ body {
   -webkit-appearance: none;
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+dialog.lightbox::backdrop {
+  background: rgb(0 0 0 / 0.85);
 }
