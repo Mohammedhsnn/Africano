@@ -1,16 +1,30 @@
-import { PartyPopper, Truck, type LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  ChefHat,
+  Mail,
+  MessageCircle,
+  PartyPopper,
+  Phone,
+  Truck,
+  type LucideIcon,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HalalStamp } from "@/components/HalalStamp";
 import { HomeReviews } from "@/components/HomeReviews";
 import { MobileShell } from "@/components/MobileShell";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SocialLinks } from "@/components/SocialLinks";
+import { TruckSchedule, TruckStatus } from "@/components/TruckSchedule";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary, hasLocale } from "@/lib/i18n/dictionaries";
 import { localizePath } from "@/lib/i18n/paths";
 
 const heroVideoSrc =
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/media/africano-hero.mp4";
+
+const tel = "+31641947956";
 
 function StrongLine({
   text,
@@ -32,6 +46,55 @@ function StrongLine({
   );
 }
 
+function ServiceCard({
+  href,
+  image,
+  imageAlt,
+  imageClassName,
+  title,
+  link,
+  children,
+}: {
+  href: string;
+  image: string;
+  imageAlt: string;
+  imageClassName?: string;
+  title: string;
+  link: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex flex-col overflow-hidden rounded-lg bg-ink text-cream shadow-[0_24px_50px_-28px_rgba(11,9,8,0.7)]"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 1152px) 560px, (min-width: 768px) 50vw, 100vw"
+          className={`object-cover transition-transform duration-700 group-hover:scale-[1.04] ${imageClassName ?? ""}`}
+        />
+      </div>
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        <h3 className="font-display text-3xl font-extrabold uppercase leading-none md:text-4xl">
+          {title}
+        </h3>
+        <p className="mt-3 flex-1 leading-relaxed text-cream/75">{children}</p>
+        <span className="mt-6 inline-flex items-center gap-2 font-display text-base font-bold uppercase tracking-[0.08em] text-ember transition-colors group-hover:text-white">
+          {link}
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover:translate-x-1"
+            strokeWidth={2.25}
+            aria-hidden
+          />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
 export default async function HomePage({
   params,
 }: {
@@ -43,43 +106,42 @@ export default async function HomePage({
   const dict = getDictionary(locale);
   const h = dict.home;
 
-  const highlightCards: {
-    key: string;
-    icon?: LucideIcon;
-    halalBadge?: string;
-    title: string;
-    text: string;
-  }[] = [
-    {
-      key: "events",
-      icon: PartyPopper,
-      title: h.cardEventsTitle,
-      text: h.cardEventsText,
-    },
-    {
-      key: "taste",
-      halalBadge: "حلال",
-      title: h.cardTasteTitle,
-      text: h.cardTasteText,
-    },
-    {
-      key: "truck",
-      icon: Truck,
-      title: h.cardTruckTitle,
-      text: h.cardTruckText,
-    },
-  ];
+  const values: { key: string; icon: LucideIcon; title: string; text: string }[] =
+    [
+      {
+        key: "events",
+        icon: PartyPopper,
+        title: h.cardEventsTitle,
+        text: h.cardEventsText,
+      },
+      {
+        key: "taste",
+        icon: ChefHat,
+        title: h.cardTasteTitle,
+        text: h.cardTasteText,
+      },
+      {
+        key: "truck",
+        icon: Truck,
+        title: h.cardTruckTitle,
+        text: h.cardTruckText,
+      },
+    ];
+
+  // Twee keer de lijst per helft, zodat de band ook op brede schermen naadloos doorloopt.
+  const bandItems = [...h.band, ...h.band];
 
   return (
-    <MobileShell variant="light">
-      <section className="relative -mx-0 -mt-24 flex min-h-[82vh] flex-col items-center justify-center overflow-hidden bg-[#050505] px-4 pt-28 text-center md:-mt-20 md:min-h-[92vh] md:pt-24 lg:min-h-[100vh]">
+    <MobileShell>
+      <section className="relative -mt-16 flex min-h-[calc(100svh-4.5rem)] flex-col justify-end overflow-hidden bg-ink md:-mt-20 md:min-h-[min(100svh,64rem)]">
         <video
-          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center opacity-[0.58] [transform:translateZ(0)] [backface-visibility:hidden]"
+          className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full min-h-full min-w-full object-cover object-center [transform:translateZ(0)] [backface-visibility:hidden]"
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
+          poster="/media/africano-hero-poster.jpg"
           disablePictureInPicture
           disableRemotePlayback
           tabIndex={-1}
@@ -88,188 +150,240 @@ export default async function HomePage({
           <source src={heroVideoSrc} type="video/mp4" />
         </video>
         <div
-          className="pointer-events-none absolute inset-0 z-[1] opacity-75"
+          className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_top,#0b0908_0%,rgba(11,9,8,0.9)_34%,rgba(11,9,8,0.5)_46%,rgba(11,9,8,0.1)_60%,rgba(11,9,8,0.05)_84%,rgba(11,9,8,0.45)_100%)] md:bg-[linear-gradient(to_top,#0b0908_0%,transparent_22%),linear-gradient(95deg,rgba(11,9,8,0.82)_0%,rgba(11,9,8,0.5)_34%,rgba(11,9,8,0.1)_62%,transparent_80%)]"
           aria-hidden
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(180,31,35,0.28),transparent)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(144,0,16,0.16),transparent_45%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.48)_100%)]" />
-          <div
-            className="absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-          />
-        </div>
+        />
 
-        <div className="relative z-10 mx-auto max-w-3xl py-12 md:py-16">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-primary">
-            <span aria-hidden>✦</span> {h.heroBadge}
-          </p>
-          <h1 className="mb-6 font-headline text-3xl font-extrabold leading-tight tracking-tighter text-white md:text-5xl">
-            {h.heroTitleLead}{" "}
-            <span className="text-primary-container">{h.heroTitleAccent}</span>{" "}
-            {h.heroTitleRest}
-          </h1>
-          <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-stone-400 md:text-lg">
-            {h.heroSub}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={localizePath(locale, "/catering")}
-              className="inline-block rounded-lg bg-primary px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-primary-container md:px-8 md:py-4"
-            >
-              {h.ctaCatering}
-            </Link>
-            <Link
-              href={localizePath(locale, "/contact")}
-              className="inline-block rounded-lg border border-white/20 bg-white/5 px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-black md:px-8 md:py-4"
-            >
-              {h.ctaContact}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-surface px-6 py-14 md:px-8 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                {h.aboutEyebrow}
-              </p>
-              <h2 className="font-headline text-2xl font-extrabold uppercase tracking-tighter text-on-surface md:text-3xl">
-                {h.aboutHeading}
-              </h2>
-            </div>
-            <Link
-              href={localizePath(locale, "/over-ons")}
-              className="text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary"
-            >
-              {h.aboutLink}
-            </Link>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {highlightCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <article
-                  key={card.key}
-                  className="rounded-xl border border-black/5 bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  {card.halalBadge ? (
-                    <span
-                      className="mb-4 inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-white px-2.5 text-base font-black text-primary shadow-sm"
-                      aria-hidden
-                    >
-                      {card.halalBadge}
-                    </span>
-                  ) : (
-                    Icon && (
-                      <Icon
-                        className="mb-4 h-9 w-9 text-primary"
-                        strokeWidth={1.75}
-                        aria-hidden
-                      />
-                    )
-                  )}
-                  <h3 className="mb-2 font-headline text-lg font-bold text-on-surface">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-secondary">
-                    {card.text}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-black px-6 py-14 text-white md:px-8 md:py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-14">
-          <div className="rounded-2xl border border-white/10 bg-stone-950/80 p-8 md:p-10">
-            <p className="mb-3 text-2xl" aria-hidden>
-              🍽️
+        <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-6 px-5 pb-8 pt-32 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] sm:px-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:pb-14 lg:px-8">
+          <div>
+            <p className="font-script text-xl text-saffron md:text-2xl">
+              {h.heroBadge}
             </p>
-            <h2 className="font-headline text-xl font-black uppercase tracking-tighter md:text-2xl">
-              {dict.nav.catering}
+            <h1 className="mt-2 font-display text-[length:clamp(2.25rem,10vw,2.75rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.005em] text-cream md:text-[length:clamp(2.75rem,min(5.5vw,8.5svh),4.5rem)]">
+              <span className="block">{h.heroTitleLead}</span>
+              <span className="block text-flame">{h.heroTitleAccent}</span>
+            </h1>
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/85 max-md:[@media(max-height:880px)]:hidden md:text-base">
+              {h.heroSub}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 [text-shadow:none]">
+              <Link
+                href={localizePath(locale, "/catering")}
+                className="btn bg-flame px-4 text-[15px] text-white hover:bg-flame-deep sm:px-[1.4rem] sm:text-[1.0625rem]"
+              >
+                {h.ctaCatering}
+              </Link>
+              <Link
+                href={localizePath(locale, "/foodtruck")}
+                className="btn border-cream/35 bg-ink/30 px-4 text-[15px] text-cream backdrop-blur-sm hover:border-cream hover:bg-cream hover:text-ink sm:px-[1.4rem] sm:text-[1.0625rem]"
+              >
+                {h.ctaTruck}
+              </Link>
+            </div>
+            {/* Op mobiel als één compacte regel onder de knoppen, zodat de video de aandacht houdt. */}
+            <div className="mt-5 md:hidden">
+              <TruckStatus
+                locale={locale}
+                labels={dict.truck}
+                href={`${localizePath(locale, "/foodtruck")}#weekschema`}
+                variant="inline"
+              />
+            </div>
+          </div>
+          <div className="hidden md:block [text-shadow:none]">
+            <TruckStatus
+              locale={locale}
+              labels={dict.truck}
+              href={`${localizePath(locale, "/foodtruck")}#weekschema`}
+            />
+          </div>
+        </div>
+      </section>
+
+      <div className="overflow-hidden bg-flame py-3 text-white md:py-3.5">
+        <ul className="sr-only">
+          {h.band.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <div className="marquee-track flex w-max" aria-hidden>
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-center">
+              {bandItems.map((item, i) => (
+                <span key={i} className="flex items-center">
+                  <span className="px-5 font-display text-lg font-bold uppercase italic tracking-[0.06em] md:px-7 md:text-xl">
+                    {item}
+                  </span>
+                  <span className="h-1.5 w-1.5 rotate-45 bg-saffron" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <section className="bg-cream px-5 py-16 text-ink sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 md:mb-14">
+            <p className="font-script text-2xl text-flame md:text-3xl">
+              {h.servicesEyebrow}
+            </p>
+            <h2 className="mt-1 font-display text-5xl font-extrabold uppercase leading-[0.9] md:text-7xl">
+              {h.servicesTitle}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-stone-400">
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            <ServiceCard
+              href={localizePath(locale, "/catering")}
+              image="/media/catering-ambience.png"
+              imageAlt={h.cateringImageAlt}
+              title={h.cateringTitle}
+              link={h.cateringMore}
+            >
               <StrongLine
                 text={h.cateringBlurb}
                 strong={h.cateringBlurbStrong}
                 strongClassName="text-white"
               />
-            </p>
-            <Link
-              href={localizePath(locale, "/catering")}
-              className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-primary hover:underline"
-            >
-              {h.cateringMore}
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-stone-950/80 p-8 md:p-10">
-            <p className="mb-3 text-2xl" aria-hidden>
-              🚚
-            </p>
-            <h2 className="font-headline text-xl font-black uppercase tracking-tighter md:text-2xl">
-              {dict.nav.foodTruck}
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-stone-400">
-              {h.truckBlurb}
-            </p>
-            <Link
+            </ServiceCard>
+            <ServiceCard
               href={localizePath(locale, "/foodtruck")}
-              className="mt-6 inline-block text-xs font-bold uppercase tracking-widest text-primary hover:underline"
+              image="/media/foodtruck/truck-wrap.jpg"
+              imageAlt={h.truckImageAlt}
+              imageClassName="object-[50%_20%]"
+              title={h.truckTitle}
+              link={h.truckMore}
             >
-              {h.truckMore}
-            </Link>
+              {h.truckBlurb}
+            </ServiceCard>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-black/5 bg-primary/10 px-6 py-12 md:px-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
-          <div>
-            <h2 className="font-headline text-lg font-bold uppercase tracking-tighter text-on-surface md:text-xl">
-              {h.shopTitle}
+      <section className="bg-ink px-5 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between">
+            <h2 className="font-display text-5xl font-extrabold uppercase leading-[0.9] md:text-7xl">
+              <span className="block text-cream">{h.scheduleTitle}</span>
+              <span className="block text-saffron">{h.scheduleTitleAccent}</span>
             </h2>
-            <p className="mt-2 max-w-xl text-sm text-secondary">{h.shopText}</p>
+            <div className="max-w-sm">
+              <p className="leading-relaxed text-cream/75">{h.scheduleText}</p>
+              <Link
+                href={`${localizePath(locale, "/foodtruck")}#menu`}
+                className="btn mt-5 bg-flame text-white hover:bg-flame-deep"
+              >
+                {h.scheduleCta}
+              </Link>
+            </div>
           </div>
-          <Link
-            href={localizePath(locale, "/shop")}
-            className="shrink-0 rounded-lg border border-primary/30 bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-white"
-          >
-            {h.shopCta}
-          </Link>
+          <TruckSchedule locale={locale} labels={dict.truck} />
+        </div>
+      </section>
+
+      <section className="bg-cream px-5 py-16 text-ink sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
+          <div className="relative">
+            <p className="font-script text-2xl text-flame md:text-3xl">
+              {h.aboutEyebrow}
+            </p>
+            <h2 className="mt-1 font-display text-5xl font-extrabold uppercase leading-[0.9] md:text-7xl">
+              {h.aboutHeading}
+            </h2>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/75">
+              {h.aboutText}
+            </p>
+            <Link
+              href={localizePath(locale, "/over-ons")}
+              className="group mt-7 inline-flex items-center gap-2 font-display text-base font-bold uppercase tracking-[0.08em] text-flame hover:text-flame-deep"
+            >
+              {h.aboutLink}
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                strokeWidth={2.25}
+                aria-hidden
+              />
+            </Link>
+            <HalalStamp
+              label={h.halalStamp}
+              className="mt-10 hidden md:flex"
+            />
+          </div>
+          <ul className="divide-y divide-ink/10 border-y border-ink/10 self-start">
+            {values.map(({ key, icon: Icon, title, text }) => (
+              <li key={key} className="flex gap-5 py-7">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-ink text-saffron">
+                  <Icon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+                </span>
+                <div>
+                  <h3 className="font-display text-2xl font-bold uppercase leading-tight">
+                    {title}
+                  </h3>
+                  <p className="mt-1.5 leading-relaxed text-ink/70">{text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <HomeReviews reviews={h.reviews} />
 
-      <section className="bg-surface-container-low px-6 py-14 md:px-8 md:py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-headline text-2xl font-black uppercase tracking-tighter text-on-surface md:text-3xl">
-            {h.ctaSectionTitle}
-          </h2>
-          <p className="mt-4 text-secondary">{h.ctaSectionText}</p>
-          <Link
-            href={localizePath(locale, "/contact")}
-            className="mt-8 inline-block rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-widest text-white hover:bg-primary-container"
-          >
-            {h.ctaSectionButton}
-          </Link>
-          <div className="mt-5">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-              {h.socialEyebrow}
+      <section className="bg-flame px-5 py-16 text-white sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="font-display text-6xl font-extrabold uppercase leading-[0.86] md:text-8xl">
+                {h.ctaSectionTitle}
+              </h2>
+              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/90">
+                {h.ctaSectionText}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row md:w-64 md:flex-col">
+              <a
+                href={`tel:${tel}`}
+                className="btn bg-white text-flame hover:bg-ink hover:text-white"
+              >
+                <Phone className="h-[18px] w-[18px]" strokeWidth={2.25} aria-hidden />
+                {h.ctaCall}
+              </a>
+              <a
+                href={`https://wa.me/${tel}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn border-white/60 text-white hover:border-white hover:bg-white hover:text-flame"
+              >
+                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={2.25} aria-hidden />
+                {h.ctaWhatsapp}
+              </a>
+              <a
+                href="mailto:info@africanocatering.nl"
+                className="btn border-white/60 text-white hover:border-white hover:bg-white hover:text-flame"
+              >
+                <Mail className="h-[18px] w-[18px]" strokeWidth={2.25} aria-hidden />
+                {h.ctaMail}
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col gap-6 border-t border-white/25 pt-6 md:flex-row md:items-center md:justify-between">
+            <p className="max-w-xl text-sm leading-relaxed text-white/85">
+              <strong className="font-semibold text-white">{h.shopTitle}</strong>{" "}
+              — {h.shopText}{" "}
+              <Link
+                href={localizePath(locale, "/shop")}
+                className="font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+              >
+                {h.shopCta}
+              </Link>
             </p>
-            <SocialLinks
-              tone="light"
-              className="flex flex-wrap items-center justify-center gap-2"
-            />
+            <div className="flex flex-col gap-2 md:items-end">
+              <p className="font-display text-sm font-bold uppercase tracking-[0.12em] text-white/80">
+                {h.socialEyebrow}
+              </p>
+              <SocialLinks tone="red" />
+            </div>
           </div>
         </div>
       </section>

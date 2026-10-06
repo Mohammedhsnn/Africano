@@ -1,11 +1,27 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Barlow, Barlow_Condensed, Kaushan_Script } from "next/font/google";
 import { LocaleHtmlAttributes } from "@/components/LocaleHtmlAttributes";
 import "./globals.css";
 
-const inter = Inter({
+const barlow = Barlow({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-barlow",
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-barlow-condensed",
+  display: "swap",
+});
+
+const kaushan = Kaushan_Script({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-kaushan",
   display: "swap",
 });
 
@@ -41,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="nl"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${barlow.variable} ${barlowCondensed.variable} ${kaushan.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full" suppressHydrationWarning>

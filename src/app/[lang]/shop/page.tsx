@@ -38,38 +38,40 @@ export default async function ShopPage({
 
   return (
     <MobileShell>
-      <main className="flex flex-1 flex-col px-4 pb-12 md:px-8">
-        <header className="mx-auto mb-10 max-w-2xl text-center">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-primary">
-            {s.eyebrow}
-          </p>
-          <h1 className="font-headline text-3xl font-black uppercase tracking-tighter text-white md:text-4xl">
-            {s.title}
-          </h1>
-        </header>
+      <main className="flex flex-1 flex-col px-5 pb-16 pt-10 sm:px-6 md:pb-24 md:pt-16 lg:px-8">
+        <div className="mx-auto w-full max-w-3xl">
+          <header className="mb-10">
+            <p className="font-script text-2xl text-saffron md:text-3xl">
+              {s.eyebrow}
+            </p>
+            <h1 className="mt-2 font-display text-[clamp(3rem,8vw,5.5rem)] font-extrabold uppercase leading-[0.88] text-cream">
+              {s.title}
+            </h1>
+          </header>
 
-        <div className="mx-auto max-w-2xl space-y-6 rounded-2xl border border-amber-500/20 bg-amber-950/20 p-8 text-stone-300 md:p-10">
-          <p className="text-lg leading-relaxed">
-            <StrongLine text={s.p1} strong={s.p1Strong} />
-          </p>
-          <p className="leading-relaxed text-stone-400">{s.p2}</p>
-          <p className="leading-relaxed text-stone-400">{s.p3}</p>
-        </div>
+          <div className="space-y-5 rounded-lg border border-white/[0.08] border-l-4 border-l-saffron bg-coal p-7 text-lg text-cream/75 md:p-10">
+            <p className="text-xl leading-relaxed text-cream">
+              <StrongLine text={s.p1} strong={s.p1Strong} />
+            </p>
+            <p className="leading-relaxed">{s.p2}</p>
+            <p className="leading-relaxed">{s.p3}</p>
+          </div>
 
-        <div className="mx-auto mt-10 flex flex-col items-center gap-3">
-          <a
-            href="mailto:info@africanocatering.nl"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-bold uppercase tracking-widest text-white hover:bg-primary-container"
-          >
-            <Mail className="h-5 w-5 shrink-0" strokeWidth={1.75} aria-hidden />
-            {s.mailCta}
-          </a>
-          <Link
-            href={localizePath(locale, "/contact")}
-            className="text-xs font-bold uppercase tracking-widest text-stone-500 hover:text-primary"
-          >
-            {s.allContact}
-          </Link>
+          <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+            <a
+              href="mailto:info@africanocatering.nl"
+              className="btn bg-flame text-white hover:bg-flame-deep"
+            >
+              <Mail className="h-5 w-5 shrink-0" strokeWidth={2} aria-hidden />
+              {s.mailCta}
+            </a>
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="font-display text-base font-bold uppercase tracking-[0.08em] text-cream/75 transition-colors hover:text-white"
+            >
+              {s.allContact}
+            </Link>
+          </div>
         </div>
       </main>
       <SiteFooter locale={locale} />

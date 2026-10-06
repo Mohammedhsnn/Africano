@@ -3,7 +3,7 @@ const en = {
     siteName: "Africano Catering",
     defaultTitle: "Halal Catering & Food Truck",
     defaultDescription:
-      "Africano Catering provides halal catering and food truck service for weddings, parties, and corporate events. Fresh dishes with character, from 20 guests.",
+      "Africano Catering provides halal catering and food truck service for weddings, parties, and corporate events. Fresh dishes with character, from 20 guests. Every week with the food truck in Goes, Hulst and Terneuzen.",
     keywords: [
       "Africano Catering",
       "halal catering",
@@ -13,6 +13,10 @@ const en = {
       "event catering",
       "wedding catering",
       "corporate catering",
+      "food truck Goes",
+      "food truck Hulst",
+      "food truck Terneuzen",
+      "rice bowl",
     ],
   },
   nav: {
@@ -45,17 +49,46 @@ const en = {
     motto: "Flavour that stays with you",
   },
   home: {
-    heroBadge: "Since 2021",
-    heroTitleLead: "Africano Catering",
-    heroTitleAccent: "flavour with care,",
-    heroTitleRest: "for your party or event.",
+    heroBadge: "Since 2021 · from Zeeland",
+    heroTitleLead: "Fresh. Full of flavour.",
+    heroTitleAccent: "100% halal.",
     heroSub:
-      "For private and business clients: catering and food truck, with our own dishes, distinctive spices, and traditional Somali flavours.",
+      "Catering for weddings, parties and businesses — and every week our food truck is in Goes, Hulst and Terneuzen. Our own recipes, distinctive spices and Somali classics.",
     ctaCatering: "Explore catering",
-    ctaContact: "Get in touch",
-    aboutEyebrow: "About us",
+    ctaTruck: "Visit the food truck",
+    band: [
+      "100% halal",
+      "Fresh ingredients",
+      "Always freshly made",
+      "Rice bowls",
+      "Wraps",
+      "Sambosa",
+      "Catering from 20 guests",
+    ],
+    servicesEyebrow: "What we do",
+    servicesTitle: "Catering & food truck",
+    cateringTitle: "Tailored catering",
+    cateringBlurb:
+      "From {strong} for weddings, birthdays, and corporate events. Fresh food tailored to your wishes — we handle the meal, you enjoy carefree.",
+    cateringBlurbStrong: "20 guests",
+    cateringMore: "More about catering",
+    cateringImageAlt: "Africano catering buffet with chafing dishes",
+    truckTitle: "The food truck",
+    truckBlurb:
+      "At fixed spots in Zeeland every week, and available to book for your party or event. Rice bowls, wraps and sambosa — made fresh right in front of you.",
+    truckMore: "Menu & weekly schedule",
+    truckImageAlt: "The Africano food truck with its red wrap",
+    scheduleTitle: "Every week",
+    scheduleTitleAccent: "you’ll find us here:",
+    scheduleText:
+      "Stop by the food truck for a fresh rice bowl, wrap or sambosa.",
+    scheduleCta: "See menu & prices",
+    aboutEyebrow: "Since 2021",
     aboutHeading: "What we stand for",
-    aboutLink: "Read the full story →",
+    aboutText:
+      "Africano Catering has been cooking for private and business clients since 2021. With our own recipes, carefully chosen spices and Somali classics prepared the traditional way.",
+    aboutLink: "Read our story",
+    halalStamp: "100% halal",
     cardEventsTitle: "Parties & events",
     cardEventsText:
       "Catering for celebrations, events, and special occasions — prepared with passion.",
@@ -65,21 +98,16 @@ const en = {
     cardTruckTitle: "Food truck",
     cardTruckText:
       "Rice bowls, toppings, and house-made sauces — fresh at your location.",
-    cateringBlurb:
-      "From {strong} for weddings, birthdays, and corporate events. Fresh food tailored to your wishes — we handle the meal, you enjoy carefree.",
-    cateringBlurbStrong: "20 guests",
-    cateringMore: "More about catering →",
-    truckBlurb:
-      "We come to your location and cook fresh on site — a great atmosphere and great food for your guests.",
-    truckMore: "More about the truck →",
     shopTitle: "Online shop",
     shopText:
       "Our shop is still under construction. In the meantime we’re happy to help with orders and requests by email.",
     shopCta: "Shop info",
     ctaSectionTitle: "Let’s talk",
     ctaSectionText:
-      "Call, message, or email — we’re happy to think along about catering, the truck, or custom options.",
-    ctaSectionButton: "Contact",
+      "Call, message, or email — we’re happy to think along about catering, the food truck, or custom options.",
+    ctaCall: "Call us",
+    ctaWhatsapp: "WhatsApp",
+    ctaMail: "Email us",
     socialEyebrow: "Follow us on",
     reviews: {
       title: "Guest experiences",
@@ -102,8 +130,25 @@ const en = {
       ],
     },
   },
+  truck: {
+    truckName: "Food truck",
+    weekdays: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
+    openNow: "Open now",
+    today: "Today",
+    tomorrow: "Tomorrow",
+    until: "until",
+    route: "Directions",
+  },
   catering: {
-    eyebrow: "Catering — Africano Catering",
+    eyebrow: "For parties & events",
     title: "Tailored catering",
     intro:
       "No online menu: we’d rather discuss in person what fits your occasion.",
@@ -126,13 +171,125 @@ const en = {
     imageAlt: "Atmospheric Africano catering setup",
   },
   foodtruck: {
-    eyebrow: "Food truck — Africano Catering",
-    title: "The Africano food truck at your location",
+    eyebrow: "Africano Food Truck",
+    title: "Rice bowls, wraps & sambosa",
+    titleAccent: "Always freshly made!",
     intro:
-      "We come to you and cook fresh on the spot — a welcoming vibe and flavourful meals for your guests.",
-    chips: ["Fresh on location", "Quick service", "Unique rice bowls"],
-    imageAlt: "Africano food truck on location",
-    body: "The Africano food truck is available for parties and events. Think rice bowls with different toppings and house-made sauces — prepared fresh wherever you are.",
+      "Every week our food truck is in Goes, Hulst and Terneuzen. Stop by for a fresh rice bowl, wrap or sambosa — or book the truck for your own party or event.",
+    chips: ["Fresh", "Full of flavour", "100% halal"],
+    ctaMenu: "See the menu",
+    ctaSchedule: "Where are we?",
+    imageAlt:
+      "The Africano food truck with its red wrap: rice bowl, wraps, sambosa",
+    scheduleTitle: "Every week",
+    scheduleTitleAccent: "you’ll find us here:",
+    scheduleText:
+      "Fixed spots, every week. We share changes and extra locations on Instagram.",
+    scheduleInstagram: "Follow @africano_df",
+    slogan: "We’d love to see you at Africano!",
+    menu: {
+      title: "On the menu",
+      subtitle: "Prices subject to change · everything is 100% halal",
+      bowl: {
+        name: "Rice bowl",
+        meats: "Chicken • Beef • Lamb",
+        meatsNote: "Mix and match",
+        sizes: [
+          { name: "Small", price: "€9", note: "1 scoop of meat – pick 1 kind" },
+          {
+            name: "Regular",
+            price: "€12",
+            note: "2 scoops of meat – pick 2 kinds or double up",
+          },
+          {
+            name: "Large",
+            price: "€15",
+            note: "3 scoops of meat – mix as you like",
+          },
+          {
+            name: "Africano XXL",
+            price: "€19,95",
+            note: "Chicken + beef + lamb",
+          },
+        ],
+        footnote: "All bowls are served with rice, salad and sauce.",
+        imageAlt: "Rice bowl with fresh toppings and sauce",
+      },
+      wrap: {
+        name: "Qunbala wrap",
+        price: "€7,00",
+        items: ["Fries", "Falafel", "Aubergine", "Grated cheese"],
+        extrasLabel: "Extra",
+        extras: [
+          { name: "Egg", price: "+ €1" },
+          { name: "Crisps", price: "+ €0,50" },
+          { name: "Chicken", price: "+ €2" },
+        ],
+        imageAlt: "Qunbala wrap, cut in half",
+      },
+      sides: {
+        title: "Sides",
+        items: [
+          {
+            name: "Sambosa",
+            note: "Filled with minced meat, chicken or veggie",
+            price: "€2,50",
+          },
+          { name: "Basbusa", note: "Dessert", price: "€3,75" },
+          { name: "Cold drinks", note: "From the fridge", price: "" },
+        ],
+        sambosaAlt: "Two sambosas",
+        basbusaAlt: "A piece of basbusa with pistachio",
+      },
+      build: {
+        title: "Build your bowl",
+        steps: [
+          {
+            title: "Base",
+            items: [{ name: "Rice" }, { name: "Salad" }, { name: "Fries" }],
+          },
+          {
+            title: "Toppings",
+            items: [
+              { name: "Cucumber" },
+              { name: "Tomato" },
+              { name: "Bell pepper" },
+              { name: "Corn" },
+              { name: "Chickpeas" },
+              { name: "Cheese", note: "+ €1" },
+              { name: "Red cabbage" },
+            ],
+          },
+          {
+            title: "Sauce",
+            items: [
+              { name: "White sauce" },
+              { name: "Red sauce" },
+              { name: "Green sauce", note: "spicy" },
+              { name: "Samurai sauce" },
+              { name: "Mayo" },
+              { name: "Shata" },
+              { name: "Tahini sauce" },
+            ],
+          },
+        ],
+      },
+    },
+    cardsTitle: "Flyer & menu card",
+    cardsText:
+      "Prefer to see or share the original card? Tap an image to open it full size.",
+    flyerLabel: "Flyer & weekly schedule",
+    flyerAlt:
+      "Africano Food Truck flyer with the weekly schedule per day and menu highlights",
+    menuCardLabel: "Menu card",
+    menuCardAlt:
+      "Africano menu card with rice bowls, Qunbala wrap, sides, toppings and sauces",
+    enlarge: "Enlarge",
+    close: "Close",
+    download: "Download",
+    bookingEyebrow: "Book the truck",
+    bookingTitle: "The food truck at your party",
+    body: "The Africano food truck is also available for parties and events. Think rice bowls with different toppings and house-made sauces — prepared fresh wherever you are.",
     suitableFor: "Great for",
     suitableList: [
       "Birthday parties",
@@ -188,7 +345,7 @@ const en = {
     ctaButton: "Contact",
   },
   shop: {
-    eyebrow: "Shop — Africano Catering",
+    eyebrow: "Africano Shop",
     title: "Coming online soon",
     p1: "Our shop is {strong} at the moment.",
     p1Strong: "not available yet",
